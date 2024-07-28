@@ -1,0 +1,26 @@
+/*============  Search form  =============*/
+#search {
+  position: relative;
+  margin-top: 20px;
+  display: inline-block;
+  margin-left: 0px;
+  color:#8f9ba7;
+}
+#search input {
+  border: 0px;
+  width: 268px;
+  padding: 10px 8px;
+  position: relative;
+  margin-right: 5px;
+  border: 1px solid #e2e2e2;
+}
+#search input:focus {
+  outline: none;
+}
+#search a {
+  position: relative;
+  background: transparent!important;
+}
+#search a:hover{
+  opacity: 0.7;
+}

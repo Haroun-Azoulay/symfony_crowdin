@@ -1,0 +1,248 @@
+
+.menu_block  {
+	z-index: 999;
+	position: relative;
+	float: right;
+	padding-top: 20px;
+
+}
+
+
+.menu_block nav {
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+nav>.sf-menu {
+	z-index: 990;
+	text-align: left;
+	position: relative;
+}
+nav{ position:relative;padding: 0px 0 0 0;}
+.sf-menu ul {position:absolute;top:-999px; display:none;/* left offset of submenus need to match (see below) */}
+.sf-menu li {float:left;position:relative; }
+.sf-menu>li {
+	display: block;
+	position: relative;
+	float: left;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 20px;
+
+}
+
+
+
+.sf-menu>li+li {
+	margin-left: 31px;
+}
+
+
+.sf-menu>li>ul>li {
+  float: none;
+  position: static;
+}
+
+
+.sf-menu>li>a{
+	text-transform: uppercase;
+	text-align: center;
+	position: relative;
+	color: #363947;
+	display: block;
+}
+
+.sf-menu>li.sfHover>a, .sf-menu>li.current>a, .sf-menu>li>a:hover {
+	color: #5dca88;
+}
+
+
+.sf-menu>li>a.sf-with-ul:after {
+	position: absolute;
+	content: '';
+	left: 50%;
+	margin-left: -3px;
+	width: 5px;
+	background: url(../images/arrows.png) 0 bottom no-repeat;
+	height: 4px;
+	bottom: -10px;
+	pointer-events: none;
+	z-index: 999;
+	display: block;
+}
+
+.sf-menu>li.current>a.sf-with-ul:after, 
+.sf-menu>li.sfHover>a.sf-with-ul:after {
+}
+ 
+.sf-menu>li>ul>li>a.sf-with-ul:after {
+	content: '';
+    font-family: 'FontAwesome';
+	position: absolute;
+	width: 5px;
+	font-size: 15px;
+	line-height: 13px;
+	font-weight: normal;
+	right: -15px;
+	color: #fff;
+	bottom: 3px;
+	pointer-events: none;
+	z-index: 999;
+}
+
+
+
+
+/*================================>> 2 Level <<========================================*/
+.sf-menu li ul,.sf-menu li.sfHover>ul{
+	left: 50%;
+	margin-left: -108px;
+	z-index: 999; 
+	width: 217px;
+	padding-top: 38px;
+	background-color: #5dca88;
+	top: 40px;
+	padding-bottom: 42px;
+
+}
+
+.sf-menu>li>ul:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: -7px;
+	left: 50%;
+	margin-left: -6px;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 0 6px 7px 6px;
+	border-color: transparent transparent #5dca88 transparent;
+}
+
+.sf-menu>li>ul>li>ul:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 13px;
+	left: -5px;
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 5px 5px 5px 0;
+	border-color: transparent #9fa9a9 transparent transparent;
+}
+
+
+.sf-menu li ul li {
+	position: relative;
+	text-align: center;
+	float: none !important;
+	font-size: 14px;
+	line-height: 15px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.sf-menu li ul li+li {
+	margin-top: 13px;
+}
+
+.sf-menu li ul li+li+li {
+	margin-top: 12px;
+}
+
+.sf-menu li ul li+li a {
+}
+
+
+.sf-menu li ul li a{
+	text-transform: uppercase;
+	position: relative;
+	z-index: 999;
+	color: #fff;	
+}
+
+
+
+
+
+.sf-menu li li a:hover, 
+.sf-menu li.sfHover li.sfHover>a {  
+	color: #363947;
+}
+
+/*================================>> 3 Level <<========================================*/
+.sf-menu li.sfHover li.sfHover ul{
+	position: absolute;
+	padding-top: 32px;
+	padding-bottom: 35px;
+	left: 345px;
+	top: -8px;
+	width: 135px;
+	background-color: #9fa9a9;
+}
+
+.sf-menu li ul ul li a:hover
+{
+	color: #363947;
+}
+
+
+/*==================================RESPONSIVE LAYOUTS===============================================*/
+
+
+@media only screen and (max-width: 995px) {
+
+
+	.sf-menu>li{
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.menu_block {
+		float: none !important;
+		padding: 20px 10px 25px !important;
+		clear: both;
+		margin: 0;
+		min-height: 0px;
+  		border: none;
+	}
+
+	
+
+  .menu_block  nav{
+  	border: none !important;
+		float:none !important;
+		font:12px/15px Arial, Helvetica, sans-serif;
+		text-transform:uppercase;
+		color:#927c67;
+		margin: 0 auto;
+		padding-left: 0 !important;
+		
+	
+	}
+
+	
+
+  header nav ul {
+  	border: none;
+  }
+
+	.sf-menu{display:none !important; float: none;}
+
+	#mm0{
+		font:12px/15px Arial, Helvetica, sans-serif;
+		color:#202020;
+		width:100%;
+		margin: 0 auto;
+		float: none;
+    outline: none;
+		border:2px solid #5DCA88;
+	}
+	
+
+}

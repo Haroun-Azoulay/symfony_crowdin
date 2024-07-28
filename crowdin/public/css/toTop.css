@@ -1,0 +1,24 @@
+#toTop {
+  display: inline-block;
+  position: fixed;
+  bottom: 150px;
+  right: 10%!important;
+  background: #red;
+  font-size: 50px;
+  color: #9eacb9;
+  z-index: 9999;
+  transition: ease all 0.3s;
+  margin-right: 0px!important;
+}
+#toTop:hover {
+  color: #3e454c;
+  transition: ease all 0.3s;
+}
+#toTop:focus {
+  border: none;
+}
+@media only screen and (max-width: 980px) {
+  #toTop {
+    display: none !important;
+  }
+}
