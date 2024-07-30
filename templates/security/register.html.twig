@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}inscription
+{% endblock %}
+
+{% block body %}
+	<h1>inscription</h1>
+
+	{% if error %}
+		<div class="alert alert-danger">{{ error }}</div>
+	{% endif %}
+
+	<form action="{{ path('app_register') }}" method="post">
+		<div>
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" required>
+		</div>
+
+		<div>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+		</div>
+
+		<button type="submit" class="btn">Register</button>
+	</form>
+{% endblock %}

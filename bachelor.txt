@@ -1,0 +1,10 @@
+- docker on the symfony doc 
+
+- http request for authentification
+- Json request why not 
+- form request i use this method
+
+
+
+
+- next step add ui ux authentification and role secure access and profil table 
