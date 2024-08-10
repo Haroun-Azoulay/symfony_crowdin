@@ -22,7 +22,7 @@ security:
                 check_path: app_connection
                 enable_csrf: true
             logout:
-                path: app_logout
+                path: app_disconnection
                 # where to redirect after logout
                 # target: app_any_route
 

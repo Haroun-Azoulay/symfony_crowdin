@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        // last username entered by the user
+        // last username entered by the user but it's this case it's mail
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/connection.html.twig', [
@@ -63,8 +63,8 @@ class SecurityController extends AbstractController
     }
 
 
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
+    #[Route(path: '/disconnection', name: 'app_disconnection')]
+    public function disconnection(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
