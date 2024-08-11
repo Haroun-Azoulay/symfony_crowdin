@@ -1,26 +1,156 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}inscription
-{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-	<h1>inscription</h1>
+	<h1>Inscription</h1>
+	<div class="content--wrapper">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+		<div class="content--form">
+		<form action="{{ path('app_inscription') }}" method="post">
+				<div class="form-group">
+					<label for="email">Email:</label>
+					<input type="email" id="email" name="email" required>
+				</div>
 
-	{% if error %}
-		<div class="alert alert-danger">{{ error }}</div>
-	{% endif %}
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" required>
+				</div>
 
-	<form action="{{ path('app_inscription') }}" method="post">
-		<div>
-			<label for="email">Email:</label>
-			<input type="text" id="email" name="email" required>
+				<div class="content--checkbox">
+					<h4>You are ?</h4>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkUser" class="check" name="roles" value="ROLE_USER">
+						<label for="checkUser">User</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManager" class="check" name="roles" value="ROLE_MANAGER">
+						<label for="checkManager">Project Manager</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkTranslator" class="check" name="roles" value="ROLE_TRANSLATOR">
+						<label for="checkTranslator">Translator</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="roles" value="ROLE_MANAGER_TRANSLATOR">
+						<label for="checkManagerTranslator">Project Manager and Translator</label>
+					</div>
+				</div>
+				<button type="submit" class="btn">Register</button>
+			</form>
+			<a href="{{ path('app_connection') }}"><button class="btn btn--connection">You have a account ? It's here !</button></a>
+			<a href="{{ path('app_main_homepage') }}"><button class="btn btn--homepage">Back to Home</button></a>
 		</div>
+	</div>
 
-		<div>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" required>
-		</div>
+	<script>
+		$("input:checkbox").click(function () {
+			var bol = $("input:checkbox:checked").length >= 1;
+			$("input:checkbox").not(":checked").attr("disabled", bol);
+		});
+	</script>
+{% endblock %}
 
-		<button type="submit" class="btn">Register</button>
-	</form>
+{% block stylesheets %}
+	<style>
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f4f7f6;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			text-align: center;
+			margin: 4rem;
+			color: #34495e;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+		h4 {
+			color: #34495e;
+			margin-bottom: 1rem;
+		}
+
+		.content--wrapper {
+			background-color: #ffffff;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 600px;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.content--form {
+			width: 100%;
+		}
+
+		.form-group {
+			margin-bottom: 1.5rem;
+		}
+
+		label {
+			font-weight: 500;
+			display: block;
+			color: #34495e;
+		}
+
+		input[type="email"],
+		input[type="password"] {
+			width: 100%;
+			padding: 0.75rem;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.content--checkbox {
+			margin-top: 1.5rem;
+		}
+
+		.checkbox-group {
+			display: flex;
+			align-items: center;
+			margin-bottom: 0.75rem;
+		}
+
+		.checkbox-group input {
+			margin-right: 0.5rem;
+		}
+
+		.btn {
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top:1em;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+
+		.btn--connection {
+			background-color: grey;
+		}
+
+		.btn--homepage{
+			background-color: pink;
+		}
+	</style>
 {% endblock %}

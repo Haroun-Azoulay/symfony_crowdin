@@ -166,10 +166,10 @@ $catalogue = new MessageCatalogue('ar', array (
     'Credentials have expired.' => 'انتهت صلاحية معلومات الدخول.',
     'Account is disabled.' => 'الحساب موقوف.',
     'Account is locked.' => 'الحساب مغلق.',
-    'Too many failed login attempts, please try again later.' => 'عدد كبير جدا من محاولات الدخول الفاشلة، يرجى المحاولة مرة أخرى في وقت لاحق.',
+    'Too many failed login attempts, please try again later.' => 'العديد من محاولات الدخول الفاشلة، يرجى المحاولة مرة أخرى في وقت لاحق.',
     'Invalid or expired login link.' => 'رابط تسجيل الدخول غير صالح أو منتهي الصلاحية.',
-    'Too many failed login attempts, please try again in %minutes% minute.' => 'عدد كبير جدا من محاولات الدخول الفاشلة، يرجى اعادة المحاولة بعد %minutes% دقيقة.',
-    'Too many failed login attempts, please try again in %minutes% minutes.' => 'عدد محاولات تسجيل الدخول الفاشلة كثيرة، الرجاء المحاولة مرة أخرى بعد %minutes% دقيقة.|عدد محاولات تسجيل الدخول الفاشلة كثيرة، الرجاء المحاولة مرة أخرى بعد %minutes% دقائق.',
+    'Too many failed login attempts, please try again in %minutes% minute.' => 'العديد من محاولات الدخول الفاشلة، يرجى اعادة المحاولة بعد %minutes% دقيقة.',
+    'Too many failed login attempts, please try again in %minutes% minutes.' => 'العديد من محاولات الدخول الفاشلة ، يرجى اعادة المحاولة بعد %minutes% دقائق.',
   ),
 ));
 
@@ -286,6 +286,8 @@ $catalogueEn = new MessageCatalogue('en', array (
     'The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.' => 'The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.',
     'This value is not a valid MAC address.' => 'This value is not a valid MAC address.',
     'This URL is missing a top-level domain.' => 'This URL is missing a top-level domain.',
+    'This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.' => 'This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.',
+    'This value is too long. It should contain one word.|This value is too long. It should contain {{ max }} words or less.' => 'This value is too long. It should contain one word.|This value is too long. It should contain {{ max }} words or less.',
     'This form should not contain extra fields.' => 'This form should not contain extra fields.',
     'The uploaded file was too large. Please try to upload a smaller file.' => 'The uploaded file was too large. Please try to upload a smaller file.',
     'The CSRF token is invalid. Please try to resubmit the form.' => 'The CSRF token is invalid. Please try to resubmit the form.',

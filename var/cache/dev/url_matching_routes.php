@@ -14,9 +14,10 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
-        '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::index'], null, null, null, false, false, null]],
-        '/signup' => [[['_route' => 'app_signup', '_controller' => 'App\\Controller\\LuckyController::signuppage'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_main_homepage', '_controller' => 'App\\Controller\\MainController::homepage'], null, null, null, false, false, null]],
+        '/connection' => [[['_route' => 'app_connection', '_controller' => 'App\\Controller\\SecurityController::connection'], null, null, null, false, false, null]],
+        '/inscription' => [[['_route' => 'app_inscription', '_controller' => 'App\\Controller\\SecurityController::inscription'], null, null, null, false, false, null]],
+        '/disconnection' => [[['_route' => 'app_disconnection', '_controller' => 'App\\Controller\\SecurityController::disconnection'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

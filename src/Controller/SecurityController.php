@@ -10,6 +10,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Psr\Log\LoggerInterface;
 
 class SecurityController extends AbstractController
 {
@@ -29,7 +30,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    public function inscription(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
     {
         $error = null;
 
@@ -37,22 +38,31 @@ class SecurityController extends AbstractController
             $email = $request->request->get('email');
             $plainPassword = $request->request->get('password');
 
+            $roles = $request->request->get('roles');
+
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = 'Invalid email address.';
+                echo "Ceci est une information de débogage";
+
             } elseif (strlen($plainPassword) < 6) {
                 $error = 'Password must be at least 6 characters long.';
+            } elseif (is_null($roles)) {
+                $error = 'Checkbox must be checked.';
+            
             } else {
 
                 $user = new User();
                 $user->setEmail($email);
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
-                $user->setRoles(['ROLE_USER']);
+                $user->setRoles([$roles]);
 
                 $entityManager->persist($user);
                 $entityManager->flush();
 
+                $logger->debug('This is a log message.');
+                $logger->debug($roles);
                 return $this->redirectToRoute('app_connection');
             }
         }

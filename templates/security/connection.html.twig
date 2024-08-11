@@ -6,23 +6,114 @@
 {% block body %}
 	<h1>Connection</h1>
 
-	{% if error %}
-		<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
+	<div class="content--wrapper">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-	<form action="{{ path('app_connection') }}" method="post">
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		<div class="content--form">
+			<form action="{{ path('app_connection') }}" method="post">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		<div>
-			<label for="username">Email:</label>
-			<input type="text" id="username" name="_username" value="{{ last_username }}" required>
+				<div class="form-group">
+					<label for="username">Email:</label>
+					<input type="text" id="username" name="_username" value="{{ last_username }}" required>
+				</div>
+
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="_password" required>
+				</div>
+
+				<button type="submit" class="btn">Login</button>
+			</form>
+			<a href="{{ path('app_inscription') }}">
+				<button class="btn btn--inscription">You don't have account ? It's here !</button>
+			</a>
+			<a href="{{ path('app_main_homepage') }}">
+				<button class="btn btn--homepage">Back to Home</button>
+			</a>
 		</div>
+	</div>
+{% endblock %}
 
-		<div>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="_password" required>
-		</div>
+{% block stylesheets %}
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f4f7f6;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
 
-		<button type="submit">Login</button>
-	</form>
+		h1 {
+			text-align: center;
+			margin: 4rem;
+			color: #34495e;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+		.content--wrapper {
+			background-color: #ffffff;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 600px;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.content--form {
+			width: 100%;
+		}
+
+		.form-group {
+			margin-bottom: 1.5rem;
+		}
+
+		label {
+			font-weight: 500;
+			display: block;
+			color: #34495e;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 0.75rem;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.btn {
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1em;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+
+		.btn--inscription {
+			background-color: grey;
+		}
+
+		.btn--homepage {
+			background-color: pink;
+		}
+	</style>
 {% endblock %}
