@@ -5,6 +5,8 @@
 - form request i use this method
 
 
+-entity for doctrine is really eseay with command
+
 
 
 - profil table 

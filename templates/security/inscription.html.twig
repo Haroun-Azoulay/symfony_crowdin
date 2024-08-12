@@ -6,7 +6,7 @@
 	<h1>Inscription</h1>
 	<div class="content--wrapper">
 		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			<div class="alert alert-danger">{{ error }}</div>
 		{% endif %}
 		<div class="content--form">
 		<form action="{{ path('app_inscription') }}" method="post">
