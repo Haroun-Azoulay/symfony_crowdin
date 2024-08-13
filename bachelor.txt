@@ -8,6 +8,6 @@
 -entity for doctrine is really eseay with command
 
 
-
+- username for inscription
 - profil table 
--scss 
+- scss 

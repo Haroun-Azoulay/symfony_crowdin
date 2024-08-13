@@ -37,23 +37,23 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             $email = $request->request->get('email');
             $plainPassword = $request->request->get('password');
-
+            $pseudo = $request->request->get('pseudo');
             $roles = $request->request->get('roles');
-
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = 'Invalid email address.';
-                echo "Ceci est une information de débogage";
-
+            } elseif ($existingUser !== null) {
+                $error = 'Pseudo is already used. Please you filed new pseudo';
             } elseif (strlen($plainPassword) < 6) {
                 $error = 'Password must be at least 6 characters long.';
             } elseif (is_null($roles)) {
                 $error = 'Checkbox must be checked.';
-            
             } else {
 
                 $user = new User();
                 $user->setEmail($email);
+                $user->setPseudo($pseudo);
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
                 $user->setRoles([$roles]);
