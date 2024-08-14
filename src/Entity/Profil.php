@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\Languages;
 use App\Repository\ProfilRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,8 +17,8 @@ class Profil
     #[ORM\Column(length: 1024, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true, enumType: Languages::class)]
-    private ?Languages $languages = null;
+    #[ORM\Column(type: Types::JSON, nullable: false)]
+    private array $languages = [];
 
     #[ORM\OneToOne(inversedBy: 'profil', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: "user_id", nullable: false)]
@@ -42,12 +41,12 @@ class Profil
         return $this;
     }
 
-    public function getLanguages(): ?Languages
+    public function getLanguages(): array
     {
         return $this->languages;
     }
 
-    public function setLanguages(?Languages $languages): static
+    public function setLanguages(array $languages): static
     {
         $this->languages = $languages;
 

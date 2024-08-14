@@ -6,7 +6,7 @@
 
 
 -entity for doctrine is really eseay with command
-
+-orm pattern
 
 - username for inscription
 - profil table 

@@ -33,8 +33,8 @@
 										<span>{{ app.user.pseudo }}</span>
 									</li>
 								{% else %}
-									<li>
-										<span>Welcome, guest</span>
+									<li>Welcome,
+										<span>guest</span>
 									</li>
 								{% endif %}
 								<li>
@@ -58,7 +58,7 @@
 									<a href="index-2.html">Translation</a>
 								</li>
 								<li>
-									<a href="index-3.html">My profil</a>
+									<a href="{{ path('app_profil')}}">My profil</a>
 								</li>
 								<li>
 									<a href="index-4.html">Contacts</a>

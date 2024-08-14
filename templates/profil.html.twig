@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My profil
+{% endblock %}
+
+{% block body %}
+	<h1>My Profil</h1>
+	<div class="content--wrapper">
+		<div class="content--form">
+			<form action="{{ path('app_profil') }}" method="post">
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea type="description" id="description" name="description"></textarea>
+				</div>
+
+				<div class="content--checkbox">
+					<h4>You speack ?</h4>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkUser" class="check" name="languages[]" value="french">
+                        <span class="fi fi-fr"></span>
+						<label for="checkUser">&nbsp;French</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManager" class="check" name="languages[]" value="english">
+                        <span class="fi fi-gb"></span>
+						<label for="checkManager">&nbsp;English</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkTranslator" class="check" name="languages[]" value="spanish">
+                        <span class="fi fi-es"></span>
+						<label for="checkTranslator">&nbsp;Spanish</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="german">
+                        <span class="fi fi-de"></span>
+						<label for="checkManagerTranslator">&nbsp;German</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="italian">
+                        <span class="fi fi-it"></span>
+						<label for="checkManagerTranslator">&nbsp;Italian</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="darija">
+                        <span class="fi fi-dz"></span>&nbsp;<span class="fi fi-ma"></span>
+						<label for="checkManagerTranslator">&nbsp;Darija</label>
+					</div>
+					<div class="checkbox-group">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="tamazight">
+                        <img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em" alt="Flag tamazight">
+						<label for="checkManagerTranslator">&nbsp;Tamazight</label>
+					</div>
+				</div>
+				<button type="submit" class="btn">Save</button>
+			</form>
+			<a href="{{ path('app_main_homepage') }}">
+				<button class="btn btn--homepage">Back to Home</button>
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f4f7f6;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			text-align: center;
+			margin: 4rem;
+			color: #34495e;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+		h4 {
+			color: #34495e;
+			margin-bottom: 1rem;
+		}
+
+		.content--wrapper {
+			background-color: #ffffff;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 600px;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.content--form {
+			width: 100%;
+		}
+
+		.form-group {
+			margin-bottom: 1.5rem;
+		}
+
+		label {
+			font-weight: 500;
+			display: block;
+			color: #34495e;
+		}
+
+		input[type="pseudo"] {
+			width: 100%;
+			padding: 0.75rem;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		textarea {
+			width: 100%;
+			height: 6em;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.content--checkbox {
+			margin-top: 1.5rem;
+		}
+
+		.checkbox-group {
+			display: flex;
+			align-items: center;
+			margin-bottom: 0.75rem;
+		}
+
+		.checkbox-group input {
+			margin-right: 0.5rem;
+		}
+
+		.btn {
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1em;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+
+
+		.btn--homepage {
+			background-color: pink;
+		}
+	</style>
+{% endblock %}
