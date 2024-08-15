@@ -109,9 +109,6 @@ ul {
 	list-style: none;
 }
 
-ul.list {
-}
-
 
 ul.list li {
     padding-left: 32px;
@@ -155,9 +152,6 @@ a.btn {
     margin-top: 29px;
 }
 
-a.btn:hover {
-    background-color: #3E454C;
-}
 
 /****classes****/
 
@@ -169,9 +163,6 @@ a.btn:hover {
 }
 .pad0 {
 	padding: 0 !important;
-}
-
-.pad1 {
 }
 
 

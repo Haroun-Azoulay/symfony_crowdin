@@ -24,6 +24,9 @@ class Profil
     #[ORM\JoinColumn(name: "user_id", nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $skills = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Profil
     public function setUser(User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSkills(): array
+    {
+        return $this->skills;
+    }
+
+    public function setSkills(array $skills): static
+    {
+        $this->skills = $skills;
 
         return $this;
     }
