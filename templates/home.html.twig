@@ -57,9 +57,11 @@
 								<li>
 									<a href="index-2.html">Translation</a>
 								</li>
+								{% if app.user %}
 								<li>
 									<a href="{{ path('app_profil')}}">My profil</a>
 								</li>
+								{% endif %}
 								<li>
 									<a href="index-4.html">Contacts</a>
 								</li>
