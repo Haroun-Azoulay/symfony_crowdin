@@ -7,18 +7,19 @@
 	<h1>My Profil</h1>
 	<div class="content--wrapper">
 		<div class="content--form">
-			<form action="{{ path('app_profil_create') }}" method="post">
+			<form action="{{ path('app_profil_update', { 'id': profil.id }) }}" method="post">
 				<div class="form-group">
-					<label for="description">Your description:</label>
-					<textarea type="description" id="description" name="description"></textarea>
+					<label for="description" class="description"><strong>Description :</strong></label>
+					<br>
+					<textarea type="description" id="description" name="description">{{ profil.description }}</textarea>
 				</div>
 
 				<div class="content--checkbox">
-					<h4>Do you speack any languages and your level ?</h4>
+					<h4>You speak ?</h4>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkUser" class="check" name="languages[]" value="french">
+						<input type="checkbox" id="checkUser" class="check" name="languages[]" value="french" {% if 'french' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-fr"></span>
-						<label for="checkUser">&nbsp;French</label>
+						<label for="checkUser">&nbsp;<strong>French</strong></label>
 						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
@@ -29,10 +30,10 @@
 						</select>
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkManager" class="check" name="languages[]" value="english">
+						<input type="checkbox" id="checkManager" class="check" name="languages[]" value="english" {% if 'english' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-gb"></span>
-						<label for="checkManager">&nbsp;English</label>
-								<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkManager">&nbsp;<strong>English</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -42,10 +43,10 @@
 						</select>
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkTranslator" class="check" name="languages[]" value="spanish">
+						<input type="checkbox" id="checkTranslator" class="check" name="languages[]" value="spanish" {% if 'spanish' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-es"></span>
-						<label for="checkTranslator">&nbsp;Spanish</label>
-							<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkTranslator">&nbsp;<strong>Spanish</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -53,13 +54,12 @@
 							<option value="fluent">Fluent</option>
 							<option value="native">Native</option>
 						</select>
-
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="german">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="german" {% if 'german' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-de"></span>
-						<label for="checkManagerTranslator">&nbsp;German</label>
-							<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkManagerTranslator">&nbsp;<strong>German</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -67,13 +67,12 @@
 							<option value="fluent">Fluent</option>
 							<option value="native">Native</option>
 						</select>
-
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="italian">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="italian" {% if 'italian' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-it"></span>
-						<label for="checkManagerTranslator">&nbsp;Italian</label>
-							<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkManagerTranslator">&nbsp;<strong>Italian</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -81,13 +80,12 @@
 							<option value="fluent">Fluent</option>
 							<option value="native">Native</option>
 						</select>
-
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="darija">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="darija" {% if 'darija' in profil.languages %} checked {% endif %}>
 						<span class="fi fi-dz"></span>&nbsp;<span class="fi fi-ma"></span>
-						<label for="checkManagerTranslator">&nbsp;Darija</label>
-							<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkManagerTranslator">&nbsp;<strong>Darija</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -97,10 +95,10 @@
 						</select>
 					</div>
 					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="tamazight">
+						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="tamazight" {% if 'tamazight' in profil.languages %} checked {% endif %}>
 						<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em" alt="Flag tamazight">
-						<label for="checkManagerTranslator">&nbsp;Tamazight</label>
-							<select name="skills[]" id="language-level-select" style="display:none;">
+						<label for="checkManagerTranslator">&nbsp;<strong>Tamazight</strong></label>
+						<select name="skills[]" id="language-level-select" style="display:none;">
 							<option value="beginner">Beginner</option>
 							<option value="elementary">Elementary</option>
 							<option value="intermediate">Intermediate</option>
@@ -108,7 +106,6 @@
 							<option value="fluent">Fluent</option>
 							<option value="native">Native</option>
 						</select>
-
 					</div>
 				</div>
 				<button type="submit" class="btn">Save</button>
@@ -144,6 +141,7 @@ $(this).siblings('.count').text(rangeValue);
 });
 	</script>
 {% endblock %}
+
 
 {% block stylesheets %}
 	<style>
@@ -254,28 +252,28 @@ $(this).siblings('.count').text(rangeValue);
 		}
 
 		select {
-    width: 15rem;
-    margin-left: 1rem;
-    background-color: #f4f7f6;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 105x;
-    color: #34495e;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 0.65rem auto;
-}
+			width: 15rem;
+			margin-left: 1rem;
+			background-color: #f4f7f6;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 105x;
+			color: #34495e;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			background-repeat: no-repeat;
+			background-position: right 0.75rem center;
+			background-size: 0.65rem auto;
+		}
 
-select:focus {
-    outline: none;
-    border-color: #5dca88;
-    box-shadow: 0 0 0 3px rgba(93, 202, 136, 0.2);
-}
+		select:focus {
+			outline: none;
+			border-color: #5dca88;
+			box-shadow: 0 0 0 3px rgba(93, 202, 136, 0.2);
+		}
 
-select:hover {
-    background-color: #e8f0f4;
-}
+		select:hover {
+			background-color: #e8f0f4;
+		}
 	</style>
 {% endblock %}

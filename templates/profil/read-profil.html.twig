@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile
+{% endblock %}
+
+{% block body %}
+	<h1>My Profil</h1>
+
+	<div class="content--wrapper">
+		<div class="profile-details">
+			<p>
+				<strong>Description :</strong>
+				<br>
+				{{ profil.description }}</p>
+
+			<p>
+				<strong>Languages you speak :</strong>
+			</p>
+			<ul>
+    {% for index, language in profil.languages %}
+        <li>
+            {% if language == 'french' %}
+                <span class="fi fi-fr"></span>
+            {% elseif language == 'english' %}
+                <span class="fi fi-gb"></span>
+            {% elseif language == 'spanish' %}
+                <span class="fi fi-es"></span>
+            {% elseif language == 'german' %}
+                <span class="fi fi-de"></span>
+            {% elseif language == 'italian' %}
+                <span class="fi fi-it"></span>
+            {% elseif language == 'darija' %}
+                <span class="fi fi-dz"></span><span class="fi fi-ma"></span>
+            {% elseif language == 'tamazight' %}
+                <img src="{{ asset('images/tamazight_flag.svg') }}" style="width:1em" alt="Flag tamazight">
+            {% endif %}
+            <strong>{{ language|capitalize }}</strong> {{ profil.skills[index] }}
+        </li>
+    {% endfor %}
+</ul>
+
+
+		</div>
+
+		<a href="{{ path('app_profil_update', { 'id': profil.id }) }}">
+			<button class="btn btn-secondary">Edit Profile</button>
+		</a>
+
+		<a href="{{ path('app_main_homepage') }}">
+			<button class="btn btn--homepage">Back to Home</button>
+		</a>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f4f7f6;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			text-align: center;
+			margin: 4rem;
+			color: #34495e;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+		h4 {
+			color: #34495e;
+			margin-bottom: 1rem;
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.content--wrapper {
+			background-color: #ffffff;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 600px;
+			display:flex;
+			flex-direction:column;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.content--form {
+			width: 100%;
+		}
+
+		.form-group {
+			margin-bottom: 1.5rem;
+		}
+
+		label {
+			font-weight: 500;
+			display: block;
+			color: #34495e;
+		}
+
+		input[type="pseudo"] {
+			width: 100%;
+			padding: 0.75rem;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		textarea {
+			width: 100%;
+			height: 6em;
+			margin-top: 0.25rem;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 1rem;
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.content--checkbox {
+			margin-top: 1.5rem;
+		}
+
+		.checkbox-group {
+			display: flex;
+			align-items: center;
+			margin-bottom: 0.75rem;
+		}
+
+		.checkbox-group input {
+			margin-right: 0.5rem;
+		}
+
+		.btn {
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1em;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+
+
+		.btn--homepage {
+			background-color: pink;
+		}
+
+		select {
+			width: 15rem;
+			margin-left: 1rem;
+			background-color: #f4f7f6;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			font-size: 105x;
+			color: #34495e;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			background-repeat: no-repeat;
+			background-position: right 0.75rem center;
+			background-size: 0.65rem auto;
+		}
+
+		select:focus {
+			outline: none;
+			border-color: #5dca88;
+			box-shadow: 0 0 0 3px rgba(93, 202, 136, 0.2);
+		}
+
+		select:hover {
+			background-color: #e8f0f4;
+		}
+		.fi {
+			line-height:20px;
+		}
+	</style>
+{% endblock %}
