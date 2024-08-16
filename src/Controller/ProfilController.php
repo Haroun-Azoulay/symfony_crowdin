@@ -20,7 +20,7 @@ class ProfilController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/my-profil', name: 'app_profil')]
+    #[Route('/profile', name: 'app_profil')]
     public function handleProfil(): Response
     {
         $user = $this->getUser();
@@ -31,7 +31,7 @@ class ProfilController extends AbstractController
             : $this->redirectToRoute('app_profil_create');
     }
 
-    #[Route('/profil/create', name: 'app_profil_create')]
+    #[Route('/profile/create', name: 'app_profil_create')]
     public function createProfil(Request $request): Response
     {
         if ($request->isMethod('POST')) {
@@ -45,7 +45,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/{id}', name: 'app_profil_show')]
+    #[Route('/profile/{id}', name: 'app_profil_show')]
     public function showProfil(Profil $profil): Response
     {
         return $this->render('profil/read-profil.html.twig', [
@@ -54,7 +54,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[Route('/profil-update/{id}', name: 'app_profil_update')]
+    #[Route('/profile/update/{id}', name: 'app_profil_update')]
     public function updateProfil(Request $request, int $id): Response
     {
         $profil = $this->entityManager->getRepository(Profil::class)->find($id);
