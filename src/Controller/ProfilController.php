@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProfilController extends AbstractController
 {
+    private const ALL_LANGUAGES = ["French", "English", "Spanish", "Italian", "Darija", "Tamazight"];
+
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -38,7 +40,9 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_profil_show', ['id' => $profil->getId()]);
         }
 
-        return $this->render('profil/create-profil.html.twig');
+        return $this->render('profil/create-profil.html.twig', [
+            'ALL_LANGUAGES' => self::ALL_LANGUAGES,
+        ]);
     }
 
     #[Route('/profil/{id}', name: 'app_profil_show')]
@@ -66,6 +70,7 @@ class ProfilController extends AbstractController
 
         return $this->render('profil/update-profil.html.twig', [
             'profil' => $profil,
+            'ALL_LANGUAGES' => self::ALL_LANGUAGES,
         ]);
     }
 

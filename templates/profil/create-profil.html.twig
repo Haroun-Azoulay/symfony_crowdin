@@ -1,115 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My profil
+{% block title %}Create Profile
 {% endblock %}
 
 {% block body %}
-	<h1>My Profil</h1>
+	<h1>Create my Profile</h1>
 	<div class="content--wrapper">
 		<div class="content--form">
 			<form action="{{ path('app_profil_create') }}" method="post">
 				<div class="form-group">
-					<strong><label for="description">Your description :</label></strong>
+					<strong>
+						<label for="description">Your description :</label>
+					</strong>
 					<textarea type="description" id="description" name="description"></textarea>
 				</div>
-
 				<div class="content--checkbox">
-					<h4>Do you speack any languages and your level ?</h4>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkUser" class="check" name="languages[]" value="french">
-						<span class="fi fi-fr"></span>
-						<label for="checkUser">&nbsp;French</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkManager" class="check" name="languages[]" value="english">
-						<span class="fi fi-gb"></span>
-						<label for="checkManager">&nbsp;English</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkTranslator" class="check" name="languages[]" value="spanish">
-						<span class="fi fi-es"></span>
-						<label for="checkTranslator">&nbsp;Spanish</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="german">
-						<span class="fi fi-de"></span>
-						<label for="checkManagerTranslator">&nbsp;German</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="italian">
-						<span class="fi fi-it"></span>
-						<label for="checkManagerTranslator">&nbsp;Italian</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="darija">
-						<span class="fi fi-dz"></span>&nbsp;<span class="fi fi-ma"></span>
-						<label for="checkManagerTranslator">&nbsp;Darija</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-					</div>
-					<div class="checkbox-group">
-						<input type="checkbox" id="checkManagerTranslator" class="check" name="languages[]" value="tamazight">
-						<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em" alt="Flag tamazight">
-						<label for="checkManagerTranslator">&nbsp;Tamazight</label>
-						<select name="skills[]" id="language-level-select" style="display:none;">
-							<option value="beginner">Beginner</option>
-							<option value="elementary">Elementary</option>
-							<option value="intermediate">Intermediate</option>
-							<option value="advanced">Advanced</option>
-							<option value="fluent">Fluent</option>
-							<option value="native">Native</option>
-						</select>
-
-					</div>
+					<h4>Do you speak any languages and your level ?</h4>
+					{% for language in ALL_LANGUAGES %}
+						<div class="checkbox-group">
+							<input type="checkbox" id="checkUser" class="check" name="languages[]" value="{{ language }}">
+							{% if language == 'French' %}
+								<span class="fi fi-fr"></span>
+							{% elseif language == 'English' %}
+								<span class="fi fi-gb"></span>
+							{% elseif language == 'Spanish' %}
+								<span class="fi fi-es"></span>
+							{% elseif language == 'German' %}
+								<span class="fi fi-de"></span>
+							{% elseif language == 'Italian' %}
+								<span class="fi fi-it"></span>
+							{% elseif language == 'Darija' %}
+								<span class="fi fi-dz"></span>
+								<span class="fi fi-ma"></span>
+							{% elseif language == 'Tamazight' %}
+								<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em" alt="Flag tamazight">
+							{% endif %}
+							<label for="checkUser">&nbsp;<strong>{{ language }}</strong></label>
+							<select name="skills[]" id="language-level-select" style="display:none;">
+								<option value="beginner">Beginner</option>
+								<option value="elementary">Elementary</option>
+								<option value="intermediate">Intermediate</option>
+								<option value="advanced">Advanced</option>
+								<option value="fluent">Fluent</option>
+								<option value="native">Native</option>
+							</select>
+						</div>
+					{% endfor %}
 				</div>
 				<button type="submit" class="btn">Save</button>
 			</form>
