@@ -48,6 +48,7 @@ class ProfilController extends AbstractController
     #[Route('/profile/{id}', name: 'app_profil_show')]
     public function showProfil(Profil $profil): Response
     {
+        $this->denyAccessUnlessGranted('POST_VIEW', $profil);
         return $this->render('profil/read-profil.html.twig', [
             'profil' => $profil,
             'skills' => serialize($profil->getSkills()),
@@ -58,6 +59,7 @@ class ProfilController extends AbstractController
     public function updateProfil(Request $request, int $id): Response
     {
         $profil = $this->entityManager->getRepository(Profil::class)->find($id);
+        $this->denyAccessUnlessGranted('POST_VIEW', $profil);
 
         if (!$profil) {
             throw $this->createNotFoundException('No profil found for id ' . $id);
