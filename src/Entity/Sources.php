@@ -28,20 +28,10 @@ class Sources
     #[ORM\Column(length: 255)]
     private ?string $key = null;
 
-    /**
-     * @var Collection<int, Projects>
-     */
-    #[ORM\OneToMany(targetEntity: Projects::class, mappedBy: 'sources')]
-    private Collection $project;
 
     #[ORM\ManyToOne(inversedBy: 'source')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Translations $translations = null;
-
-    public function __construct()
-    {
-        $this->project = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -92,36 +82,6 @@ class Sources
     public function setKey(string $key): static
     {
         $this->key = $key;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Projects>
-     */
-    public function getProject(): Collection
-    {
-        return $this->project;
-    }
-
-    public function addProject(Projects $project): static
-    {
-        if (!$this->project->contains($project)) {
-            $this->project->add($project);
-            $project->setSources($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProject(Projects $project): static
-    {
-        if ($this->project->removeElement($project)) {
-            // set the owning side to null (unless already changed)
-            if ($project->getSources() === $this) {
-                $project->setSources(null);
-            }
-        }
 
         return $this;
     }

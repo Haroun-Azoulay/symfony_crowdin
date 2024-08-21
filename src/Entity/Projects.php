@@ -17,15 +17,12 @@ class Projects
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $source_language = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $create_date = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $update_date = null;
-    
+
     #[ORM\ManyToOne(inversedBy: 'projects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -34,8 +31,22 @@ class Projects
     private ?string $target_languages = null;
 
     #[ORM\ManyToOne(inversedBy: 'project')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Sources $sources = null;
+
+        public function __construct()
+    {
+        $this->create_date = new \DateTimeImmutable();
+        $this->update_date = new \DateTime();
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->create_date;
+    }
+
+    public function getUpdateDate(): ?\DateTimeInterface
+    {
+        return $this->update_date;
+    }
 
     public function getId(): ?int
     {
@@ -54,48 +65,12 @@ class Projects
         return $this;
     }
 
-    public function getSourceLanguage(): ?string
-    {
-        return $this->source_language;
-    }
-
-    public function setSourceLanguage(string $source_language): static
-    {
-        $this->source_language = $source_language;
-
-        return $this;
-    }
-
-    public function getCreateDate(): ?\DateTimeImmutable
-    {
-        return $this->create_date;
-    }
-
-    public function setCreateDate(\DateTimeImmutable $create_date): static
-    {
-        $this->create_date = $create_date;
-
-        return $this;
-    }
-
-    public function getUpdateDate(): ?\DateTimeInterface
-    {
-        return $this->update_date;
-    }
-
-    public function setUpdateDate(\DateTimeInterface $update_date): static
-    {
-        $this->update_date = $update_date;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
@@ -114,15 +89,4 @@ class Projects
         return $this;
     }
 
-    public function getSources(): ?Sources
-    {
-        return $this->sources;
-    }
-
-    public function setSources(?Sources $sources): static
-    {
-        $this->sources = $sources;
-
-        return $this;
-    }
 }

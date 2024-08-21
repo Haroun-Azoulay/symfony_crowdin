@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\ProjectsType;
+namespace App\Form;
 
 use App\Entity\Projects;
 use Symfony\Component\Form\AbstractType;
@@ -14,9 +14,9 @@ class ProjectsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class)
+            ->add('name', TextType::class)
+            ->add('TargetLanguages', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Projects'])
         ;
     }
 }
