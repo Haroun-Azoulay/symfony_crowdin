@@ -25,7 +25,10 @@ class ProjectsController extends AbstractController
     #[Route('/projects', name: 'app_projects')]
     public function index(): Response
     {
-        return $this->render('projects/all-projects.html.twig');
+        $projects = $this->entityManager->getRepository(Projects::class)->findAll();
+        return $this->render('projects/all-projects.html.twig', [
+            'projects' => $projects,
+        ]);
     }
 
     #[Route('/projects/create', name: 'app_projects_create')]
@@ -40,7 +43,6 @@ class ProjectsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $projects = $form->getData();
-
             $entityManager->persist($projects);
             $entityManager->flush();
         }

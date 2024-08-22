@@ -15,7 +15,7 @@ class ProjectsType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('TargetLanguages', TextType::class)
+            ->add('targetLanguages', TextType::class)
             ->add('save', SubmitType::class, ['label' => 'Create Projects'])
         ;
     }
