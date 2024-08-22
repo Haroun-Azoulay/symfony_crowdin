@@ -5,16 +5,16 @@
 
 {% block body %}
 	<!--[if lt IE 8]>
-								    <div style=' clear: both; text-align:center; position: relative;'>
-								        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-								            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-								        </a>
-								    </div>
-								<![endif]-->
+									    <div style=' clear: both; text-align:center; position: relative;'>
+									        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+									            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+									        </a>
+									    </div>
+									<![endif]-->
 	<!--[if lt IE 9]>
-								    <script src="{{ asset('js/html5shiv.js') }}"></script>
-								    <link rel="stylesheet" media="screen" href="{{ asset('css/ie.css') }}">
-								<![endif]-->
+									    <script src="{{ asset('js/html5shiv.js') }}"></script>
+									    <link rel="stylesheet" media="screen" href="{{ asset('css/ie.css') }}">
+									<![endif]-->
 		<body class="page1" id="top"> <div
 			class="main_color">
 			<!--==============================header=================================-->
@@ -55,7 +55,10 @@
 									</ul>
 								</li>
 								<li>
-									<a href="index-2.html">Translation</a>
+									<a href="{{ path('app_projects') }}">Projects</a>
+									<ul>
+										<li><a href="{{ path('app_projects_create') }}">Add Project</a></li>
+									</ul>
 								</li>
 								{% if app.user %}
 									<li>
@@ -99,7 +102,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="page1_block">
 			<div class="container_12">
 				<div class="grid_4">

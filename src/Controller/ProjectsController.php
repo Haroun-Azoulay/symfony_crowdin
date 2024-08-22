@@ -25,15 +25,11 @@ class ProjectsController extends AbstractController
     #[Route('/projects', name: 'app_projects')]
     public function index(): Response
     {
-        return $this->render('projects/index.html.twig', [
-            'controller_name' => 'ProjectsController',
-        ]);
+        return $this->render('projects/all-projects.html.twig');
     }
 
     #[Route('/projects/create', name: 'app_projects_create')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-
-
 
     {
         $user = $this->getUser();
@@ -47,13 +43,9 @@ class ProjectsController extends AbstractController
 
             $entityManager->persist($projects);
             $entityManager->flush();
-
-            return $this->render('projects/index.html.twig', [
-                'form' => $form->createView(),
-            ]);
         }
 
-        return $this->render('projects/index.html.twig', [
+        return $this->render('projects/create-project.html.twig', [
             'form' => $form->createView(),
         ]);
     }
