@@ -27,8 +27,8 @@ class Projects
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $target_languages = null;
+    #[ORM\Column(type: Types::JSON, nullable: false)]
+    private ?array $target_languages = null;
 
     #[ORM\ManyToOne(inversedBy: 'project')]
 
@@ -77,12 +77,12 @@ class Projects
         return $this;
     }
 
-    public function getTargetLanguages(): ?string
+    public function getTargetLanguages(): ?array
     {
         return $this->target_languages;
     }
 
-    public function setTargetLanguages(string $target_languages): static
+    public function setTargetLanguages(array $target_languages): static
     {
         $this->target_languages = $target_languages;
 

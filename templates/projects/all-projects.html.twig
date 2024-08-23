@@ -1,13 +1,134 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projects{% endblock %}
+{% block title %}Projects
+{% endblock %}
 
 {% block body %}
-<p>All projects<p/>
+	<div class="projects--container">
+    <a href="{{ path('app_main_homepage') }}">
+    <button class="btn">
+    <span class="material-symbols-outlined">
+arrow_back
+</span>
+</button>
+</a>
+		<h1 class="projects--title">All Projects</h1>
+		<div class="projects--list">
+			{% for project in projects %}
+				<div class="project--card">
+                <a href="{{ path('app_projects_show' , { 'id': project.id }) }}">
+					<h2 class="project--name"> {{ project.name|length > 15 ? project.name|slice(0, 15) ~ '...' : project.name }}</h2>
+                    </a>
+					<p class="project--languages">Target Languages:
+						{{ project.targetLanguages|join(', ') }}</p>
+					<p class="project--date">Created on:
+						{{ project.createdAt|date('d/m/Y') }}</p>
+				</div>
 
-{% for project in projects %}
-    <p>{{ project.name }}</p>
-    <p>{{ project.targetLanguages }}</p>
-    <p>{{ project.createdAt|date('Y-m-d H:i:s') }}</p> {# Using the getCreatedAt method and formatting the date #}
-{% endfor %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+		body {
+			background-color: #f4f4f9;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			text-align: center;
+			margin: 3rem;
+			color: #34495e !important;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+        h2 {
+            padding: 0 !important;
+            color: #5dca88 ! important;
+            margin-top:1rem;
+            font-weight: bold;
+        }
+		.projects--container {
+			max-width: 1200px;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		.projects--title {
+			text-align: center;
+			font-size: 36px;
+			color: #4A90E2;
+			margin-bottom: 20px;
+		}
+
+		.projects--list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+            margin-top:5rem;
+		}
+
+		.project--card {
+			background-color: #f9f9f9;
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			width: calc(33.333% - 20px);
+            height:10rem;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease;
+            text-align:center;
+		}
+
+		.project--card:hover {
+			transform: translateY(-5px);
+		}
+
+		.project--name {
+			font-size: 24px;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.project--languages {
+			font-size: 18px;
+			color: #666;
+			margin-bottom: 5px;
+		}
+
+		.project--date {
+			font-size: 16px;
+			color: #999;
+		}
+        
+        .material-symbols-outlined {
+            color: #5dca88;
+            font-size:3rem;
+        }
+
+         .btn {
+			width: 10%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: black;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 0.5em;
+		}
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+	</style>
 {% endblock %}

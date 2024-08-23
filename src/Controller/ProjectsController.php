@@ -23,7 +23,7 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects', name: 'app_projects')]
-    public function index(): Response
+    public function allProjects(): Response
     {
         $projects = $this->entityManager->getRepository(Projects::class)->findAll();
         return $this->render('projects/all-projects.html.twig', [
@@ -32,7 +32,7 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/create', name: 'app_projects_create')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function createProject(Request $request, EntityManagerInterface $entityManager): Response
 
     {
         $user = $this->getUser();
@@ -45,10 +45,29 @@ class ProjectsController extends AbstractController
             $projects = $form->getData();
             $entityManager->persist($projects);
             $entityManager->flush();
+            return $this->redirectToRoute('app_main_homepage');
         }
 
         return $this->render('projects/create-project.html.twig', [
             'form' => $form->createView(),
         ]);
+
     }
+
+    #[Route('/projects/{id}', name: 'app_projects_show')]
+    public function showProject(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $projects = $entityManager->getRepository(Projects::class)->find($id);
+
+        if (!$projects) {
+            throw $this->createNotFoundException(
+                'No project found for id '.$id
+            );
+        }
+
+        return $this->render('projects/show-projects.html.twig', ['project' => $projects]);
+    }
+
+
+
 }

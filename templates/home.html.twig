@@ -57,8 +57,12 @@
 								<li>
 									<a href="#">Projects</a>
 									<ul>
+									{% if app.user %}
 									<li><a href="{{ path('app_projects') }}">All Project</a></li>
+									{% endif %}
+									{% if is_granted('ROLE_MANAGER_TRANSLATOR') or is_granted('ROLE_MANAGER') %}
 										<li><a href="{{ path('app_projects_create') }}">Add Project</a></li>
+									{% endif %}
 									</ul>
 								</li>
 								{% if app.user %}

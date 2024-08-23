@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show Project{% endblock %}
+
+{% block body %}
+    <h1>Project Details</h1>
+    <div class="content--wrapper">
+        <div class="project--details">
+            <div class="detail--group">
+                <h2 class="project--name">{{ project.name }}</h2>
+            </div>
+            <div class="detail--group">
+                <p class="project--label">Target Languages:</p>
+                <p class="project--languages">{{ project.targetLanguages|join(', ') }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 4rem;
+            color: #34495e;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .content--wrapper {
+            background-color: #ffffff;
+            padding: 4rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project--details {
+            width: 100%;
+        }
+
+        .detail--group {
+            margin-bottom: 1.5rem;
+        }
+
+        .project--name {
+            font-size: 2rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .project--label {
+            font-size: 1.2rem;
+            color: #34495e;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .project--languages {
+            font-size: 1rem;
+            color: #555;
+            background-color: #f9f9f9;
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+{% endblock %}
