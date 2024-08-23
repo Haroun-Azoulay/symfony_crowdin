@@ -55,7 +55,9 @@
 									</ul>
 								</li>
 								<li>
+									{% if app.user %}
 									<a href="#">Projects</a>
+									{% endif %}
 									<ul>
 									{% if app.user %}
 									<li><a href="{{ path('app_projects') }}">All Project</a></li>

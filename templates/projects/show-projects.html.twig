@@ -3,8 +3,14 @@
 {% block title %}Show Project{% endblock %}
 
 {% block body %}
-    <h1>Project Details</h1>
     <div class="content--wrapper">
+    <a href="{{ path('app_projects') }}">
+    <button class="btn">
+    <span class="material-symbols-outlined">
+arrow_back
+</span>
+</button>
+</a>
         <div class="project--details">
             <div class="detail--group">
                 <h2 class="project--name">{{ project.name }}</h2>
@@ -20,25 +26,19 @@
 {% block stylesheets %}
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f7f6;
+            background-color: #f4f4f9 !important;
             color: #333;
             margin: 0;
             padding: 0;
         }
 
-        h1 {
-            text-align: center;
-            margin: 4rem;
-            color: #34495e;
-            font-size: 2.5rem;
-            font-weight: bold;
+        h2 {
+            padding: 0px;
         }
-
         .content--wrapper {
             background-color: #ffffff;
             padding: 4rem;
-            margin: 2rem auto;
+            margin: 50px auto;
             max-width: 600px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,8 @@
             font-size: 1.2rem;
             color: #34495e;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-top: 5em;
+            margin-bottom: 2em;
         }
 
         .project--languages {
@@ -74,6 +75,34 @@
             padding: 0.75rem;
             border-radius: 10px;
             border: 1px solid #ddd;
+        }
+
+        .material-symbols-outlined {
+            color: #5dca88;
+            font-size:3rem;
+        }
+
+         .btn {
+            position:relative;
+            display: block;
+			width: 8rem;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: black;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: -3.5em;
+            margin-left: -2.5rem;
+            margin-bottom:3rem;
+            height:5rem;
+		}
+
+        .btn:hover {
+            opacity: 0.8;
         }
     </style>
 {% endblock %}
