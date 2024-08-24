@@ -19,15 +19,38 @@ arrow_back
                 <p class="project--label">Target Languages:</p>
                 <p class="project--languages">{{ project.targetLanguages|join(', ') }}</p>
             </div>
+            {% if is_granted("SOURCE_VIEW", project) %}
+            <a href="{{ path('app_projects_delete', { 'id': project.id }) }}"><button class="btn">Delete project</button></a>
+             <a href="{{ path('app_projects_update', { 'id': project.id }) }}"><button class="btn">Update project</button></a>
             <a href="{{ path('app_sources_create', { 'id': project.id }) }}"><button class="btn">Add Source(s)</button></a>
+        {% endif %}
+        </div>
+     <div class="sources--list">
+            <h2>Sources</h2>
+            {% for source in sources %}
+                <div class="source--item">
+                    <a href="{{ path('app_source_show' , { 'id': source.id }) }}">
+                        <p>{{ source.content }}</p>
+                        </a>
+                        {% if is_granted("SOURCE_VIEW", project) %}
+                        <a href="{{ path('app_source_delete', { 'id': source.id })}}"
+                        <span class="material-symbols-outlined">
+                        delete
+                        </span>
+                        {% endif %}
+                        {% if is_granted("SOURCE_VIEW", project) %}
+                        <a href="{{ path('app_source_update', { 'id': source.id })}}"
+                        <p>update</p>
+                        {% endif %}
+                    </a>
+                </div>
+            {% else %}
+                <p>No sources found for this project.</p>
+            {% endfor %}
         </div>
     </div>
-
-    <p>{% for source in sources %}</p>
-    <p>{{source.content }}</p>
-    {% endfor %}
+    </div>
 {% endblock %}
-
 {% block stylesheets %}
     <style>
         body {
@@ -123,5 +146,30 @@ arrow_back
 			transition: background-color 0.3s ease;
 			margin-top: 1em;
 		}
+
+        .source--item {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .source--item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .source--item a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .source--item a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 {% endblock %}

@@ -28,6 +28,8 @@ class SourcesController extends AbstractController
         $sources->setKey($project->getName());
         $form = $this->createForm(SourcesType::class, $sources);
 
+        $this->denyAccessUnlessGranted('SOURCE_VIEW', $project);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $project = $request->request->get('projet');
@@ -41,5 +43,73 @@ class SourcesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/source/{id}', name: 'app_source_show')]
+    public function showSource(EntityManagerInterface $entityManager, int $id): Response
+    {
+
+        $source = $entityManager->getRepository(Sources::class)->find($id);
+
+
+        if (!$source) {
+            throw $this->createNotFoundException(
+                'No source found for id ' . $id
+            );
+        }
+
+        return $this->render('sources/show-source.html.twig', [
+            'source' => $source,
+        ]);
+    }
+
+    #[Route('/source/update/{id}', name: 'app_source_update')]
+public function updateSource(Request $request, EntityManagerInterface $entityManager, int $id): Response
+{
+
+    $source = $entityManager->getRepository(Sources::class)->find($id);
+
+    if (!$source) {
+        throw $this->createNotFoundException('No source found for id ' . $id);
+    }
+
+
+    $project = $source->getProjects();
+    $this->denyAccessUnlessGranted('SOURCE_VIEW', $project);
+    $source->setKey($project->getName());
+
+    $form = $this->createForm(SourcesType::class, $source);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+        return $this->redirectToRoute('app_main_homepage');
+    }
+
+    return $this->render('sources/update-source.html.twig', [
+        'form' => $form->createView(),
+    ]);
 }
 
+    
+    #[Route('/source/delete/{id}', name: 'app_source_delete')]
+    public function deleteSource(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $source = $entityManager->getRepository(Sources::class)->find($id);
+        $project = $source->getProjects();
+        $this->denyAccessUnlessGranted('SOURCE_VIEW', $project);
+
+        if (!$source) {
+            throw $this->createNotFoundException(
+                'No source found for id ' . $id
+            );
+        }
+
+        $projectId = $source->getProjects()->getId();
+
+        $entityManager->remove($source);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_projects_show', ['id' => $projectId]);
+    }
+}

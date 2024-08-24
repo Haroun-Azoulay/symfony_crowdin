@@ -33,11 +33,14 @@ class ProjectsController extends AbstractController
 
     #[Route('/projects/create', name: 'app_projects_create')]
     public function createProject(Request $request, EntityManagerInterface $entityManager): Response
-
     {
         $user = $this->getUser();
         $projects = new Projects();
         $projects->setUser($user);
+        
+
+        $this->denyAccessUnlessGranted('PROJECT_VIEW', $projects);
+        
         $form = $this->createForm(ProjectsType::class, $projects);
 
         $form->handleRequest($request);
@@ -51,8 +54,34 @@ class ProjectsController extends AbstractController
         return $this->render('projects/create-project.html.twig', [
             'form' => $form->createView(),
         ]);
-
     }
+
+    #[Route('/projects/update/{id}', name: 'app_projects_update')]
+    public function updateProject(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
+
+        $project = $entityManager->getRepository(Projects::class)->find($id);
+        
+        if (!$project) {
+            throw $this->createNotFoundException('No source found for id ' . $id);
+        }
+        
+
+        $this->denyAccessUnlessGranted('PROJECT_VIEW', $project);
+        
+        $form = $this->createForm(ProjectsType::class, $project);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_main_homepage');
+        }
+
+        return $this->render('projects/update-project.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     #[Route('/projects/{id}', name: 'app_projects_show')]
     public function showProject(EntityManagerInterface $entityManager, int $id): Response
@@ -70,6 +99,22 @@ class ProjectsController extends AbstractController
         return $this->render('projects/show-projects.html.twig', ['project' => $project, 'sources' => $sources]);
     }
 
+    #[Route('/projects/delete/{id}', name: 'app_projects_delete')]
+    public function deleteProject(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $project = $entityManager->getRepository(Projects::class)->find($id);
+
+        if (!$project) {
+            throw $this->createNotFoundException(
+                'No project found for id '.$id
+            );
+        }
+        
+        $entityManager->remove($project);
+
+        $entityManager->flush();
 
 
+        return $this->redirectToRoute('app_projects');
+    }
 }
