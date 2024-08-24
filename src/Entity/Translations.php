@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TranslationsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,16 +26,9 @@ class Translations
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $update_date = null;
 
-    /**
-     * @var Collection<int, Sources>
-     */
-    #[ORM\OneToMany(targetEntity: Sources::class, mappedBy: 'translations')]
-    private Collection $source;
-
-    public function __construct()
-    {
-        $this->source = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'translations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sources $source = null;
 
     public function getId(): ?int
     {
@@ -92,32 +83,14 @@ class Translations
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sources>
-     */
-    public function getSource(): Collection
+    public function getSource(): ?Sources
     {
         return $this->source;
     }
 
-    public function addSource(Sources $source): static
+    public function setSource(?Sources $source): static
     {
-        if (!$this->source->contains($source)) {
-            $this->source->add($source);
-            $source->setTranslations($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSource(Sources $source): static
-    {
-        if ($this->source->removeElement($source)) {
-            // set the owning side to null (unless already changed)
-            if ($source->getTranslations() === $this) {
-                $source->setTranslations(null);
-            }
-        }
+        $this->source = $source;
 
         return $this;
     }

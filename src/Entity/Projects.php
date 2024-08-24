@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,12 +32,17 @@ class Projects
     #[ORM\Column(type: Types::JSON, nullable: false)]
     private ?array $target_languages = null;
 
-    #[ORM\ManyToOne(inversedBy: 'project')]
+    /**
+     * @var Collection<int, Sources>
+     */
+    #[ORM\OneToMany(targetEntity: Sources::class, mappedBy: 'projects')]
+    private Collection $sources;
 
-        public function __construct()
+    public function __construct()
     {
         $this->create_date = new \DateTimeImmutable();
         $this->update_date = new \DateTime();
+        $this->sources = new ArrayCollection();
     }
 
     public function getCreatedAt(): \DateTimeImmutable
@@ -89,4 +96,33 @@ class Projects
         return $this;
     }
 
+    /**
+     * @return Collection<int, Sources>
+     */
+    public function getSources(): Collection
+    {
+        return $this->sources;
+    }
+
+    public function addSource(Sources $source): static
+    {
+        if (!$this->sources->contains($source)) {
+            $this->sources->add($source);
+            $source->setProjects($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSource(Sources $source): static
+    {
+        if ($this->sources->removeElement($source)) {
+            // set the owning side to null (unless already changed)
+            if ($source->getProjects() === $this) {
+                $source->setProjects(null);
+            }
+        }
+
+        return $this;
+    }
 }

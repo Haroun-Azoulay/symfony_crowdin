@@ -5,7 +5,7 @@
 {% block body %}
     <div class="content--wrapper">
     <a href="{{ path('app_projects') }}">
-    <button class="btn">
+    <button class="btn--navigation">
     <span class="material-symbols-outlined">
 arrow_back
 </span>
@@ -19,8 +19,13 @@ arrow_back
                 <p class="project--label">Target Languages:</p>
                 <p class="project--languages">{{ project.targetLanguages|join(', ') }}</p>
             </div>
+            <a href="{{ path('app_sources_create', { 'id': project.id }) }}"><button class="btn">Add Source(s)</button></a>
         </div>
     </div>
+
+    <p>{% for source in sources %}</p>
+    <p>{{source.content }}</p>
+    {% endfor %}
 {% endblock %}
 
 {% block stylesheets %}
@@ -82,7 +87,7 @@ arrow_back
             font-size:3rem;
         }
 
-         .btn {
+         .btn--navigation {
             position:relative;
             display: block;
 			width: 8rem;
@@ -104,5 +109,19 @@ arrow_back
         .btn:hover {
             opacity: 0.8;
         }
+
+        .btn {
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1em;
+		}
     </style>
 {% endblock %}

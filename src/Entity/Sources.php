@@ -28,10 +28,22 @@ class Sources
     #[ORM\Column(length: 255)]
     private ?string $key = null;
 
-
-    #[ORM\ManyToOne(inversedBy: 'source')]
+    #[ORM\ManyToOne(inversedBy: 'sources')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Translations $translations = null;
+    private ?Projects $projects = null;
+
+    /**
+     * @var Collection<int, Translations>
+     */
+    #[ORM\OneToMany(targetEntity: Translations::class, mappedBy: 'source')]
+    private Collection $translations;
+
+    public function __construct()
+    {
+        $this->create_date = new \DateTimeImmutable();
+        $this->update_date = new \DateTime();
+        $this->translations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,30 +62,6 @@ class Sources
         return $this;
     }
 
-    public function getCreateDate(): ?\DateTimeImmutable
-    {
-        return $this->create_date;
-    }
-
-    public function setCreateDate(\DateTimeImmutable $create_date): static
-    {
-        $this->create_date = $create_date;
-
-        return $this;
-    }
-
-    public function getUpdateDate(): ?\DateTimeInterface
-    {
-        return $this->update_date;
-    }
-
-    public function setUpdateDate(\DateTimeInterface $update_date): static
-    {
-        $this->update_date = $update_date;
-
-        return $this;
-    }
-
     public function getKey(): ?string
     {
         return $this->key;
@@ -86,14 +74,54 @@ class Sources
         return $this;
     }
 
-    public function getTranslations(): ?Translations
+    public function getCreateDate(): ?\DateTimeImmutable
+    {
+        return $this->create_date;
+    }
+
+    public function getUpdateDate(): ?\DateTimeInterface
+    {
+        return $this->update_date;
+    }
+
+    public function getProjects(): ?Projects
+    {
+        return $this->projects;
+    }
+
+    public function setProjects(?Projects $projects): static
+    {
+        $this->projects = $projects;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Translations>
+     */
+    public function getTranslations(): Collection
     {
         return $this->translations;
     }
 
-    public function setTranslations(?Translations $translations): static
+    public function addTranslation(Translations $translation): static
     {
-        $this->translations = $translations;
+        if (!$this->translations->contains($translation)) {
+            $this->translations->add($translation);
+            $translation->setSource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(Translations $translation): static
+    {
+        if ($this->translations->removeElement($translation)) {
+            // set the owning side to null (unless already changed)
+            if ($translation->getSource() === $this) {
+                $translation->setSource(null);
+            }
+        }
 
         return $this;
     }

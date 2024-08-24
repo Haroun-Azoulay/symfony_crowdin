@@ -57,15 +57,17 @@ class ProjectsController extends AbstractController
     #[Route('/projects/{id}', name: 'app_projects_show')]
     public function showProject(EntityManagerInterface $entityManager, int $id): Response
     {
-        $projects = $entityManager->getRepository(Projects::class)->find($id);
+        $project = $entityManager->getRepository(Projects::class)->find($id);
 
-        if (!$projects) {
+        if (!$project) {
             throw $this->createNotFoundException(
                 'No project found for id '.$id
             );
         }
 
-        return $this->render('projects/show-projects.html.twig', ['project' => $projects]);
+        $sources = $project->getSources();
+
+        return $this->render('projects/show-projects.html.twig', ['project' => $project, 'sources' => $sources]);
     }
 
 
