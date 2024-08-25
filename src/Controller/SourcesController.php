@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Projects;
 use App\Entity\Sources;
+use App\Entity\Translations;
+use App\Form\TranslationsType;
 use App\Form\SourcesType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +47,7 @@ class SourcesController extends AbstractController
     }
 
     #[Route('/source/{id}', name: 'app_source_show')]
-    public function showSource(EntityManagerInterface $entityManager, int $id): Response
+    public function showSource(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
 
         $source = $entityManager->getRepository(Sources::class)->find($id);
@@ -56,11 +58,36 @@ class SourcesController extends AbstractController
                 'No source found for id ' . $id
             );
         }
+        $translations = new Translations();
+        $translations->setSource($source);
+        $form = $this->createForm(TranslationsType::class, $translations);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $project = $request->request->get('projet');
+            $translations = $form->getData();
+            $entityManager->persist($translations);
+            $entityManager->flush();
+        }
+
+              if (!$translations) {
+            throw $this->createNotFoundException(
+                'No translation found for id ' . $id
+            );
+        }
+
+        $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
+
 
         return $this->render('sources/show-source.html.twig', [
             'source' => $source,
+            'form' => $form->createView(),
+            'translations' =>$translations
         ]);
     }
+
+
+
 
     #[Route('/source/update/{id}', name: 'app_source_update')]
 public function updateSource(Request $request, EntityManagerInterface $entityManager, int $id): Response

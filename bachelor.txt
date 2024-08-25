@@ -12,3 +12,4 @@
 
 -voters and autoriz for profil for exemple
 - scss 
+- add translation and change target langage about projects ( so change entity too)

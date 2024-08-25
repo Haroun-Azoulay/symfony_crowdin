@@ -30,6 +30,12 @@ class Translations
     #[ORM\JoinColumn(nullable: false)]
     private ?Sources $source = null;
 
+    public function __construct()
+    {
+        $this->create_date = new \DateTimeImmutable();
+        $this->update_date = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,24 +70,12 @@ class Translations
         return $this->create_date;
     }
 
-    public function setCreateDate(\DateTimeImmutable $create_date): static
-    {
-        $this->create_date = $create_date;
-
-        return $this;
-    }
 
     public function getUpdateDate(): ?\DateTimeInterface
     {
         return $this->update_date;
     }
 
-    public function setUpdateDate(\DateTimeInterface $update_date): static
-    {
-        $this->update_date = $update_date;
-
-        return $this;
-    }
 
     public function getSource(): ?Sources
     {

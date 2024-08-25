@@ -7,6 +7,11 @@
 <div class="content---wrapper">
 {{ source.key }}
 {{ source.content }}
+{{ form(form) }}
+{% for translation in translations %}
+    <p>{{ translation.language }}</p>
+    <p>{{ translation.translatedContent }}</p>
+{% endfor %}
 </div>
 
 {% endblock %}
