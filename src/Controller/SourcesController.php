@@ -58,6 +58,19 @@ class SourcesController extends AbstractController
                 'No source found for id ' . $id
             );
         }
+
+        $existingTranslation = $entityManager->getRepository(Translations::class)->findOneBy(['source' => $source]);
+
+        if ($existingTranslation) {
+            $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
+    
+            return $this->render('sources/show-source.html.twig', [
+                'source' => $source,
+                'translations' => $translations,
+                'form' => null,  // Passer un formulaire nul ou vide
+            ]);
+        }
+
         $translations = new Translations();
         $translations->setSource($source);
         $form = $this->createForm(TranslationsType::class, $translations);
@@ -68,6 +81,7 @@ class SourcesController extends AbstractController
             $translations = $form->getData();
             $entityManager->persist($translations);
             $entityManager->flush();
+            return $this->redirectToRoute('app_source_show', ['id' => $id]);
         }
 
               if (!$translations) {

@@ -7,7 +7,9 @@
 <div class="content---wrapper">
 {{ source.key }}
 {{ source.content }}
+{% if form is not null %}
 {{ form(form) }}
+{% endif %}
 {% for translation in translations %}
     <p>{{ translation.language }}</p>
     <p>{{ translation.translatedContent }}</p>
