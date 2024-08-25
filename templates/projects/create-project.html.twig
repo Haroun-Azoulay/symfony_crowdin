@@ -38,6 +38,33 @@
                         </div>
                     {% endfor %}
                 </div>
+                    <div class="form--group">
+                {{ form_label(form.startLanguage, 'Start Languages:', {'label_attr': {'class': 'form--label'}}) }}
+                <div class="form--control form--target">
+                    {% for language in form.startLanguage %}
+                        <div class="form--checkbox">
+                            {{ form_widget(language) }}
+                            {% set languageLabel = language.vars.label %}
+                            {% if languageLabel == 'French' %}
+                                <span class="fi fi-fr"></span>
+                            {% elseif languageLabel == 'English' %}
+                                <span class="fi fi-gb"></span>
+                            {% elseif languageLabel == 'Spanish' %}
+                                <span class="fi fi-es"></span>
+                            {% elseif languageLabel == 'German' %}
+                                <span class="fi fi-de"></span>
+                            {% elseif languageLabel == 'Italian' %}
+                                <span class="fi fi-it"></span>
+                            {% elseif languageLabel == 'Darija' %}
+                                <span class="fi fi-dz"></span>
+                                <span class="fi fi-ma"></span>
+                            {% elseif languageLabel == 'Tamazight' %}
+                                <img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em; margin-top:-4px" alt="Flag tamazight">
+                            {% endif %}
+                            {{ form_label(language) }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             
             {{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}

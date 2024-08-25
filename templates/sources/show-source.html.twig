@@ -1,19 +1,94 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SourcesController!{% endblock %}
+{% block title %}Source Details{% endblock %}
 
 {% block body %}
 
-<div class="content---wrapper">
-{{ source.key }}
-{{ source.content }}
-{% if form is not null %}
-{{ form(form) }}
-{% endif %}
-{% for translation in translations %}
-    <p>{{ translation.language }}</p>
-    <p>{{ translation.translatedContent }}</p>
-{% endfor %}
+<div class="content--wrapper">
+    <h2>{{ source.key }}</h2>
+    <div class="source-content">
+        <p>{{ source.content }}</p>
+    </div>
+
+    {% if form is not null %}
+        <div class="form-wrapper">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+
+    <div class="translations-list">
+        <h3>Translations:</h3>
+        {% for translation in translations %}
+            <div class="translation-item">
+                <p class="translation-language">{{ translation.language }}</p>
+                <p class="translation-content">{{ translation.translatedContent }}</p>
+            </div>
+        {% else %}
+            <p>No translations available.</p>
+        {% endfor %}
+    </div>
 </div>
 
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .content--wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .content--wrapper h2 {
+        font-size: 2rem;
+        color: #34495e;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .source-content {
+        background-color: #ecf0f1;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .form-wrapper {
+        margin-bottom: 2rem;
+    }
+
+    .translations-list {
+        margin-top: 2rem;
+    }
+
+    .translations-list h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .translation-item {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .translation-language {
+        font-size: 1.2rem;
+        color: #3498db;
+        margin-bottom: 0.5rem;
+    }
+
+    .translation-content {
+        font-size: 1rem;
+        color: #555;
+    }
+</style>
 {% endblock %}

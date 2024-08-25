@@ -38,6 +38,9 @@ class Projects
     #[ORM\OneToMany(targetEntity: Sources::class, mappedBy: 'projects', cascade:["persist", "remove"], orphanRemoval: true)]
     private Collection $sources;
 
+    #[ORM\Column(length: 255)]
+    private ?string $start_language = null;
+
     public function __construct()
     {
         $this->create_date = new \DateTimeImmutable();
@@ -122,6 +125,18 @@ class Projects
                 $source->setProjects(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStartLanguage(): ?string
+    {
+        return $this->start_language;
+    }
+
+    public function setStartLanguage(string $start_language): static
+    {
+        $this->start_language = $start_language;
 
         return $this;
     }

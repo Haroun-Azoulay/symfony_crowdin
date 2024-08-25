@@ -6,7 +6,7 @@
     <div class="content--wrapper">
     <a href="{{ path('app_projects') }}">
     <button class="btn--navigation">
-    <span class="material-symbols-outlined">
+    <span class="material-symbols-outlined btn--navigation__arrow" style="font-size:3rem">
 arrow_back
 </span>
 </button>
@@ -16,13 +16,31 @@ arrow_back
                 <h2 class="project--name">{{ project.name }}</h2>
             </div>
             <div class="detail--group">
+            <p class="project--label">Start Language:</p>
+            <p>{{ project.startLanguage }}</p>
                 <p class="project--label">Target Languages:</p>
-                <p class="project--languages">{{ project.targetLanguages|join(', ') }}</p>
+                <div class="project--languages">{{ project.targetLanguages|join(', ') }}
+                {% if is_granted("SOURCE_VIEW", project) %}
+                <div class="project--languages__icon">
+                 <a href="{{ path('app_projects_update', { 'id': project.id })}}"
+                        <span class="material-symbols-outlined source--item__logo--update">
+                        update
+                    </a>
+                    <a href="{{ path('app_projects_delete', { 'id': project.id }) }}">
+                    <span class="material-symbols-outlined source--item__logo--remove">
+                        delete
+                        </span>
+                        </a>
+                    </div>
+                    </div>
+                    {% endif %}
             </div>
             {% if is_granted("SOURCE_VIEW", project) %}
-            <a href="{{ path('app_projects_delete', { 'id': project.id }) }}"><button class="btn">Delete project</button></a>
-             <a href="{{ path('app_projects_update', { 'id': project.id }) }}"><button class="btn">Update project</button></a>
-            <a href="{{ path('app_sources_create', { 'id': project.id }) }}"><button class="btn">Add Source(s)</button></a>
+            <a href="{{ path('app_sources_create', { 'id': project.id }) }}"><button class="btn">Add Source(s)<span class="material-symbols-outlined">
+add
+</span>
+</button>
+</a>
         {% endif %}
         </div>
      <div class="sources--list">
@@ -30,20 +48,26 @@ arrow_back
             {% for source in sources %}
                 <div class="source--item">
                     <a href="{{ path('app_source_show' , { 'id': source.id }) }}">
-                        <p>{{ source.content }}</p>
-                        </a>
+                        {{ source.content }}
+                    </a>
+                     <div class="source--item__logo">
                         {% if is_granted("SOURCE_VIEW", project) %}
-                        <a href="{{ path('app_source_delete', { 'id': source.id })}}"
-                        <span class="material-symbols-outlined">
+                   
+                        <a href="{{ path('app_source_update', { 'id': source.id })}}"
+                        <span class="material-symbols-outlined source--item__logo--update">
+                        update
+                    </a>
+                        {% endif %}
+                        {% if is_granted("SOURCE_VIEW", project) %}
+                     <a href="{{ path('app_source_delete', { 'id': source.id })}}"
+                        <span class="material-symbols-outlined source--item__logo--remove">
                         delete
                         </span>
-                        {% endif %}
-                        {% if is_granted("SOURCE_VIEW", project) %}
-                        <a href="{{ path('app_source_update', { 'id': source.id })}}"
-                        <p>update</p>
-                        {% endif %}
                     </a>
-                </div>
+                    </div>
+                    </div>
+                        {% endif %}
+                
             {% else %}
                 <p>No sources found for this project.</p>
             {% endfor %}
@@ -71,7 +95,9 @@ arrow_back
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
+        .btn--navigation__arrow {
+            color: #5dca88;
+        }
         .project--details {
             width: 100%;
         }
@@ -105,10 +131,6 @@ arrow_back
             border: 1px solid #ddd;
         }
 
-        .material-symbols-outlined {
-            color: #5dca88;
-            font-size:3rem;
-        }
 
          .btn--navigation {
             position:relative;
@@ -153,7 +175,11 @@ arrow_back
             border-radius: 10px;
             margin-bottom: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display:flex;
+            flex-direction:row;
+            justify-content:space-between;
         }
+
 
         .source--item:hover {
             transform: translateY(-2px);
@@ -163,13 +189,22 @@ arrow_back
         .source--item a {
             text-decoration: none;
             color: #2c3e50;
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 500;
         }
 
-        .source--item a:hover {
-            text-decoration: underline;
+        .source--item__logo--update:hover {
+            color:#5dca88;
         }
 
+        .source--item__logo--remove:hover {
+            color:red;
+        }
+
+        .project--languages {
+            display:flex;
+            flex-direction:row;
+            justify-content:space-between;
+        }
     </style>
 {% endblock %}

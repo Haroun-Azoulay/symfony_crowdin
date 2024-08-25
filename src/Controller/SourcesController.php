@@ -67,7 +67,7 @@ class SourcesController extends AbstractController
             return $this->render('sources/show-source.html.twig', [
                 'source' => $source,
                 'translations' => $translations,
-                'form' => null,  // Passer un formulaire nul ou vide
+                'form' => null,
             ]);
         }
 

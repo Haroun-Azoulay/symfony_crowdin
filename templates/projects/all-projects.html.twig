@@ -19,6 +19,8 @@ arrow_back
                 <a href="{{ path('app_projects_show' , { 'id': project.id }) }}">
 					<h2 class="project--name"> {{ project.name|length > 15 ? project.name|slice(0, 15) ~ '...' : project.name }}</h2>
                     </a>
+					<p class="project--languages">Start Language:
+						{{ project.startLanguage }}</p>
 					<p class="project--languages">Target Languages:
 						{{ project.targetLanguages|join(', ') }}</p>
 					<p class="project--date">Created on:

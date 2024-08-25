@@ -5,7 +5,28 @@
 {% block body %}
 
 <div class="content---wrapper">
+<div class="source-content">
 {{ form(form) }}
 </div>
+</div>
 
+{% endblock %}
+{% block stylesheets %}
+<style>
+    .content--wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .content--wrapper h2 {
+        font-size: 2rem;
+        color: #34495e;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+</style>
 {% endblock %}

@@ -15,6 +15,22 @@ class ProjectsType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add(
+                'startLanguage', 
+                ChoiceType::class, 
+                [
+                    'choices' => [
+                        'French' => 'French',
+                        'English' => 'English',
+                        'Spanish' => 'Spanish',
+                        'Italian' => 'Italian',
+                        'Darija' => 'Darija',
+                        'Tamazight' => 'Tamazight',
+                    ],
+                'multiple' => false,
+                'expanded' => true
+                ]
+            )
+            ->add(
                 'targetLanguages', 
                 ChoiceType::class, 
                 [
