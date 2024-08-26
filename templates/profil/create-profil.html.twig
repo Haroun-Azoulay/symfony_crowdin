@@ -35,7 +35,8 @@
 							{% elseif language == 'Tamazight' %}
 								<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:2em" alt="Flag tamazight">
 							{% endif %}
-							<label for="checkUser">&nbsp;<strong>{{ language }}</strong></label>
+							<label for="checkUser">&nbsp;<strong>{{ language }}</strong>
+							</label>
 							<select name="skills[]" id="language-level-select" style="display:none;">
 								<option value="beginner">Beginner</option>
 								<option value="elementary">Elementary</option>
@@ -49,7 +50,10 @@
 				</div>
 				<button type="submit" class="btn">Save</button>
 			</form>
-			
+			<a href="{{ path('app_main_homepage') }}">
+				<button class="btn btn--homepage">Back to Home</button>
+			</a>
+
 		</div>
 	</div>
 	<script>

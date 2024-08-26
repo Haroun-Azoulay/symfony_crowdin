@@ -38,11 +38,13 @@ class SourcesController extends AbstractController
             $sources = $form->getData();
             $entityManager->persist($sources);
             $entityManager->flush();
-            return $this->redirectToRoute('app_main_homepage');
+            return $this->redirectToRoute('app_projects_show', ['id' => $id]);
+
         }
 
         return $this->render('sources/create-source.html.twig', [
             'form' => $form->createView(),
+            'project' => $project
         ]);
     }
 
@@ -51,16 +53,25 @@ class SourcesController extends AbstractController
     {
 
         $source = $entityManager->getRepository(Sources::class)->find($id);
-
-
+    
         if (!$source) {
-            throw $this->createNotFoundException(
-                'No source found for id ' . $id
-            );
+            throw $this->createNotFoundException('No source found for id ' . $id);
         }
+    
+        $project = $source->getProjects(); 
+    
+        $user = $project->getUser();
+    
+        if (!$user) {
+            throw new \Exception('User is not loaded correctly.');
+        }
+    
+        $roles = $user->getRoles();
+    
 
+    
         $existingTranslation = $entityManager->getRepository(Translations::class)->findOneBy(['source' => $source]);
-
+    
         if ($existingTranslation) {
             $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
     
@@ -68,40 +79,34 @@ class SourcesController extends AbstractController
                 'source' => $source,
                 'translations' => $translations,
                 'form' => null,
+                'project' => $project,
+                'roles' => $roles, 
             ]);
         }
-
+    
         $translations = new Translations();
         $translations->setSource($source);
         $form = $this->createForm(TranslationsType::class, $translations);
-
+    
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $project = $request->request->get('projet');
             $translations = $form->getData();
             $entityManager->persist($translations);
             $entityManager->flush();
             return $this->redirectToRoute('app_source_show', ['id' => $id]);
         }
-
-              if (!$translations) {
-            throw $this->createNotFoundException(
-                'No translation found for id ' . $id
-            );
-        }
-
+    
         $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
-
-
+    
         return $this->render('sources/show-source.html.twig', [
             'source' => $source,
             'form' => $form->createView(),
-            'translations' =>$translations
+            'translations' => $translations,
+            'project' => $project,
+            'roles' => $roles,
         ]);
     }
-
-
-
+    
 
     #[Route('/source/update/{id}', name: 'app_source_update')]
 public function updateSource(Request $request, EntityManagerInterface $entityManager, int $id): Response

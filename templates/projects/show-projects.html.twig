@@ -17,7 +17,7 @@ arrow_back
             </div>
             <div class="detail--group">
             <p class="project--label">Start Language:</p>
-            <p>{{ project.startLanguage }}</p>
+            <div class="project--languages">{{ project.startLanguage }}</div>
                 <p class="project--label">Target Languages:</p>
                 <div class="project--languages">{{ project.targetLanguages|join(', ') }}
                 {% if is_granted("SOURCE_VIEW", project) %}
@@ -75,6 +75,8 @@ add
     </div>
     </div>
 {% endblock %}
+
+
 {% block stylesheets %}
     <style>
         body {
@@ -102,10 +104,6 @@ add
             width: 100%;
         }
 
-        .detail--group {
-            margin-bottom: 1.5rem;
-        }
-
         .project--name {
             font-size: 2rem;
             color: #2c3e50;
@@ -118,7 +116,7 @@ add
             font-size: 1.2rem;
             color: #34495e;
             font-weight: bold;
-            margin-top: 5em;
+            margin-top: 3em;
             margin-bottom: 2em;
         }
 
@@ -130,7 +128,6 @@ add
             border-radius: 10px;
             border: 1px solid #ddd;
         }
-
 
          .btn--navigation {
             position:relative;
@@ -205,6 +202,8 @@ add
             display:flex;
             flex-direction:row;
             justify-content:space-between;
+            margin-bottom:1rem;
         }
+        
     </style>
 {% endblock %}

@@ -48,7 +48,7 @@ class ProjectsController extends AbstractController
             $projects = $form->getData();
             $entityManager->persist($projects);
             $entityManager->flush();
-            return $this->redirectToRoute('app_main_homepage');
+            return $this->redirectToRoute('app_projects');
         }
 
         return $this->render('projects/create-project.html.twig', [

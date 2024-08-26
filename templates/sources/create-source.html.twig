@@ -1,32 +1,111 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SourcesController!{% endblock %}
+{% block title %}Create Source
+{% endblock %}
 
 {% block body %}
 
-<div class="content---wrapper">
-<div class="source-content">
-{{ form(form) }}
-</div>
-</div>
+	<div class="content--wrapper">
+		<a href="{{ path('app_projects_show', { 'id': project.id }) }}">
+			<button class="btn--navigation">
+				<span class="material-symbols-outlined btn--navigation__arrow" style="font-size:3rem">
+					arrow_back
+				</span>
+			</button>
+		</a>
+		<h1>Create a New Source</h1>
+		<div class="source-content">
+			{{ form_start(form) }}
+			<p class="content--label">Content :</p>
+			{{ form_widget(form.content, {'attr': {'class': 'form--content'}}) }}
+			{{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
 
 {% endblock %}
 {% block stylesheets %}
-<style>
-    .content--wrapper {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-        background-color: #f7f7f7;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+	<style>
 
-    .content--wrapper h2 {
-        font-size: 2rem;
-        color: #34495e;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
-</style>
+		body {
+			background-color: #f4f4f9 !important;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+
+		.btn--navigation__arrow {
+			color: #5dca88;
+		}
+		.btn--navigation {
+			position: relative;
+			display: block;
+			width: 8rem;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: black;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: -3.5em;
+			margin-left: -2.5rem;
+			margin-bottom: 3rem;
+			height: 5rem;
+		}
+		h1 {
+			text-align: center;
+			margin: 4rem 2rem 8rem;
+			color: #34495e;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+
+		.content--wrapper {
+			background-color: #ffffff;
+			padding: 4rem;
+			margin: 50px auto;
+			max-width: 600px;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+
+		.content--label {
+			font-size: 1.2rem;
+			color: #34495e;
+			font-weight: bold;
+			margin-top: 3em;
+			margin-bottom: 2em;
+		}
+
+		.form--content {
+			width: 100%;
+		}
+
+		.source-content {
+			margin-top: 1.5rem;
+		}
+
+		.btn {
+			display: block;
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 8px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1rem;
+			text-align: center;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+	</style>
 {% endblock %}
