@@ -26,6 +26,8 @@ class ProjectsController extends AbstractController
     public function allProjects(): Response
     {
         $projects = $this->entityManager->getRepository(Projects::class)->findAll();
+
+        
         return $this->render('projects/all-projects.html.twig', [
             'projects' => $projects,
         ]);
@@ -73,8 +75,9 @@ class ProjectsController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $project->setUpdateDate(new \DateTime());
             $entityManager->flush();
-            return $this->redirectToRoute('app_main_homepage');
+            return $this->redirectToRoute('app_projects_show', ['id' => $id]);
         }
 
         return $this->render('projects/update-project.html.twig', [

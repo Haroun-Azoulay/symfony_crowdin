@@ -57,6 +57,11 @@ class Projects
     {
         return $this->update_date;
     }
+    
+    public function setUpdateDate(): void
+    {
+        $this->update_date = new \DateTime();
+    }
 
     public function getId(): ?int
     {

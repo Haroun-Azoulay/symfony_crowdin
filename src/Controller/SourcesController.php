@@ -48,7 +48,7 @@ class SourcesController extends AbstractController
         ]);
     }
 
-    #[Route('/source/{id}', name: 'app_source_show')]
+    #[Route('/sources/{id}', name: 'app_source_show')]
     public function showSource(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
 
@@ -66,23 +66,28 @@ class SourcesController extends AbstractController
             throw new \Exception('User is not loaded correctly.');
         }
     
-        $roles = $user->getRoles();
     
+        $maxTranslations = $source->getProjects()->getTargetLanguages();
 
+        function countElementsinTRanslations(array $maxTranslations):int {
+            return count($maxTranslations);
+        };
+
+        $numbermax = countElementsinTRanslations($maxTranslations);
     
-        $existingTranslation = $entityManager->getRepository(Translations::class)->findOneBy(['source' => $source]);
+        // $existingTranslation = $entityManager->getRepository(Translations::class)->findOneBy(['source' => $source]);
     
-        if ($existingTranslation) {
-            $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
+        // if ($numbermax < ) {
+        //     $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
     
-            return $this->render('sources/show-source.html.twig', [
-                'source' => $source,
-                'translations' => $translations,
-                'form' => null,
-                'project' => $project,
-                'roles' => $roles, 
-            ]);
-        }
+        //     return $this->render('sources/show-source.html.twig', [
+        //         'source' => $source,
+        //         'translations' => $translations,
+        //         'form' => null,
+        //         'project' => $project,
+        //         'roles' => $roles, 
+        //     ]);
+        // }
     
         $translations = new Translations();
         $translations->setSource($source);
@@ -103,12 +108,12 @@ class SourcesController extends AbstractController
             'form' => $form->createView(),
             'translations' => $translations,
             'project' => $project,
-            'roles' => $roles,
+            'Maxtranslations' => $numbermax,
         ]);
     }
     
 
-    #[Route('/source/update/{id}', name: 'app_source_update')]
+    #[Route('/sources/update/{id}', name: 'app_source_update')]
 public function updateSource(Request $request, EntityManagerInterface $entityManager, int $id): Response
 {
 
@@ -123,21 +128,24 @@ public function updateSource(Request $request, EntityManagerInterface $entityMan
     $this->denyAccessUnlessGranted('SOURCE_VIEW', $project);
     $source->setKey($project->getName());
 
+    $projectId = $source->getProjects()->getId();
+
     $form = $this->createForm(SourcesType::class, $source);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->flush();
-        return $this->redirectToRoute('app_main_homepage');
+        return $this->redirectToRoute('app_projects_show', ['id' => $projectId]);
     }
 
     return $this->render('sources/update-source.html.twig', [
         'form' => $form->createView(),
+        'project' => $projectId,
     ]);
 }
 
     
-    #[Route('/source/delete/{id}', name: 'app_source_delete')]
+    #[Route('/sources/delete/{id}', name: 'app_source_delete')]
     public function deleteSource(EntityManagerInterface $entityManager, int $id): Response
     {
         $source = $entityManager->getRepository(Sources::class)->find($id);

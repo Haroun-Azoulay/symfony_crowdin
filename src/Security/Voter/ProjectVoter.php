@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class ProjectVoter extends Voter
 {
     public const EDIT = 'TRANSLATE_EDIT';
-    public const VIEW = 'PROJECT_VIEW';
+    public const VIEW = 'TRANSLATE_VIEW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -23,11 +23,11 @@ class ProjectVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof UserInterface) {
-            return false;
-        }
+        // if (!$user instanceof UserInterface) {
+        //     return false;
+        // }
 
-        if (!in_array('ROLE_TRANSLATE', $user->getRoles()) && !in_array('ROLE_MANAGER_TRANSLATOR', $user->getRoles())) {
+        if (!in_array('ROLE_TRANSLATOR', $user->getRoles()) && !in_array('ROLE_MANAGER_TRANSLATOR', $user->getRoles())) {
             return false;
         }
 
@@ -45,12 +45,12 @@ class ProjectVoter extends Voter
 {
     // if i want verify my role for debug
     // dd($user->getRoles());
-    return $user === $project->getUser();
+    return true;
 }
 
 
     private function canEdit(Projects $project, User $user): bool
     {
-        return $user === $project->getUser();
+        return true;
     }
 }

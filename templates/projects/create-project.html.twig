@@ -12,9 +12,9 @@
                 {{ form_widget(form.name, {'attr': {'class': 'form--control'}}) }}
             </div>
             <div class="form--group">
-                {{ form_label(form.targetLanguages, 'Target Languages:', {'label_attr': {'class': 'form--label'}}) }}
+                      {{ form_label(form.startLanguage, 'Start Language:', {'label_attr': {'class': 'form--label'}}) }}
                 <div class="form--control form--target">
-                    {% for language in form.targetLanguages %}
+                    {% for language in form.startLanguage %}
                         <div class="form--checkbox">
                             {{ form_widget(language) }}
                             {% set languageLabel = language.vars.label %}
@@ -39,9 +39,9 @@
                     {% endfor %}
                 </div>
                     <div class="form--group">
-                {{ form_label(form.startLanguage, 'Start Languages:', {'label_attr': {'class': 'form--label'}}) }}
+               {{ form_label(form.targetLanguages, 'Target Languages:', {'label_attr': {'class': 'form--label'}}) }}
                 <div class="form--control form--target">
-                    {% for language in form.startLanguage %}
+                    {% for language in form.targetLanguages %}
                         <div class="form--checkbox">
                             {{ form_widget(language) }}
                             {% set languageLabel = language.vars.label %}
@@ -69,9 +69,6 @@
             
             {{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}
             {{ form_end(form) }}
-            <a href="{{ path('app_main_homepage') }}">
-				<button class="btn btn--homepage">Back to Home</button>
-			</a>
         </div>
     </div>
 {% endblock %}
@@ -117,6 +114,7 @@
             color: #34495e;
             margin-bottom: 0.5rem;
             font-weight: bold;
+            margin-top:1rem;
         }
 
         .form--checkbox{
@@ -146,10 +144,6 @@
 			cursor: pointer;
 			transition: background-color 0.3s ease;
 			margin-top: 1em;
-		}
-
-        .btn--homepage {
-			background-color: pink;
 		}
 
         .btn:hover {

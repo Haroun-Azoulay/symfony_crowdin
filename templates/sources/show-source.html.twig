@@ -1,166 +1,282 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Source Details{% endblock %}
+{% block title %}Source Details
+{% endblock %}
 
 {% block body %}
 
-<div class="content--wrapper">
-    <a href="{{ path('app_projects_show', { 'id': project.id }) }}">
-        <button class="btn--navigation">
-            <span class="material-symbols-outlined btn--navigation__arrow" style="font-size:3rem">
-                arrow_back
-            </span>
-        </button>
-    </a>
-    <h2>{{ source.key }}</h2>
-    <div class="source-content">
-        <p>{{ source.content }}</p>
-    </div>
-    {% if form is not null %}
-        {% if is_granted("TRANSLATE_EDIT", project) %}
-        <div class="form-wrapper">
-            {{ form_start(form) }}
-            {{ form_widget(form.translatedContent, {'attr': {'class': 'form--content'}}) }}
-            {{ form_widget(form.language, {'attr': {'class': 'form--radio'}}) }}
-            {{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}
-            {{ form_end(form) }}
-        </div>
-        {% endif %}
-    {% endif %}
+	<div class="content--wrapper">
+		<a href="{{ path('app_projects_show', { 'id': project.id }) }}">
+			<button class="btn--navigation">
+				<span class="material-symbols-outlined btn--navigation__arrow" style="font-size:3rem">
+					arrow_back
+				</span>
+			</button>
+		</a>
+		<h2>{{ source.key }}</h2>
+		<div class="source-content">
+			<p class="textarea--content">{{ source.content }}</p>
+		</div>
+		{% if form is not null %}
+			{% if is_granted("TRANSLATE_EDIT", project) %}
+            {% if Maxtranslations > translations|length %}
+				<div class="form-wrapper">
+					{{ form_start(form) }}
+					{{ form_widget(form.translatedContent, {'attr': {'class': 'form--content'}}) }}
 
-    <div class="translations-list">
-        <h3>Translation:</h3>
-        {% for translation in translations %}
-            <div class="translation-item">
-                <p class="translation-language">{{ translation.language }}</p>
-                <p class="translation-content">{{ translation.translatedContent }}</p>
-            </div>
-        {% else %}
-            <p>No translations available.</p>
-        {% endfor %}
-    </div>
-</div>
+					<div class="language-options">
+						{% for language in form.language %}
+							<label class="language-label">
+								{{ form_widget(language) }}
+								{% set languageLabel = language.vars.label %}
+								{% if languageLabel == 'French' %}
+									<span class="fi fi-fr"></span>
+									French
+								{% elseif languageLabel == 'English' %}
+									<span class="fi fi-gb"></span>
+									English
+								{% elseif languageLabel == 'Spanish' %}
+									<span class="fi fi-es"></span>
+									Spanish
+								{% elseif languageLabel == 'German' %}
+									<span class="fi fi-de"></span>
+									German
+								{% elseif languageLabel == 'Italian' %}
+									<span class="fi fi-it"></span>
+									Italian
+								{% elseif languageLabel == 'Darija' %}
+									<span class="fi fi-dz"></span>
+									<span class="fi fi-ma"></span>
+									Darija
+								{% elseif languageLabel == 'Tamazight' %}
+									<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:1.5em" alt="Flag tamazight">
+									Tamazight
+								{% endif %}
+							</label>
+						{% endfor %}
+					</div>
+
+					{{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}
+					{{ form_end(form) }}
+				</div>
+
+			{% endif %}
+            {% endif %}
+		{% endif %}
+
+		<div class="translations-list">
+			<div class="translations--label">Translation(s) :</p>
+			{% for translation in translations %}
+				<div class="translation-item">
+					<p class="translation-language">
+                    {{ translation.language }}
+						{% if translation.language == 'French' %}
+							<span class="fi fi-fr"></span>
+						{% elseif translation.language == 'English' %}
+							<span class="fi fi-gb"></span>
+						{% elseif translation.language == 'Spanish' %}
+							<span class="fi fi-es"></span>
+						{% elseif translation.language == 'German' %}
+							<span class="fi fi-de"></span>
+						{% elseif translation.language == 'Italian' %}
+							<span class="fi fi-it"></span>
+						{% elseif translation.language == 'Darija' %}
+							<span class="fi fi-dz"></span>
+							<span class="fi fi-ma"></span>
+						{% elseif translation.language == 'Tamazight' %}
+							<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:1.5em" alt="Flag tamazight">
+						{% endif %}
+					</p>
+                    <div class="translate--item">
+					<p class="translation-content">{{ translation.translatedContent }}
+					</p>
+					{% if is_granted("TRANSLATE_EDIT", project) %}
+                    <div class="translate--item__logo">
+                    <a href="{{ path('app_translation_update', { 'id': translation.id })}}"
+                        <span class="material-symbols-outlined translate--item__logo--update">
+                        update
+                    </a>
+                      <a href="{{ path('app_translation_delete', { 'id': translation.id })}}"
+                        <span class="material-symbols-outlined translate--item__logo--remove">
+                        delete
+                        </span>
+                    </a>
+					{% endif %}
+                    </div>
+                    </div>
+				</div>
+			{% else %}
+				<p>No translations available.</p>
+			{% endfor %}
+		</div>
+	</div>
 
 {% endblock %}
 
 {% block stylesheets %}
-<style>
-    body {
-        background-color: #f4f4f9 !important;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
+	<style>
+		body {
+			background-color: #f4f4f9 !important;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
 
-    .btn--navigation__arrow {
-        color: #5dca88;
-    }
+		.language-options {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
 
-    .btn--navigation {
-        position: relative;
-        display: block;
-        width: 8rem;
-        padding: 0.75rem;
-        border: none;
-        border-radius: 10px;
-        background-color: black;
-        color: white;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: -3.5em;
-        margin-left: -2.5rem;
-        margin-bottom: 3rem;
-        height: 5rem;
-    }
+        .translate--item {
+            display:flex;
+            justify-content: space-between;
+        }
+		.translations--label {
+			font-size: 1.2rem !important;
+			color: #34495e;
+			font-weight: bold;
+			margin-top: 3em;
+		}
 
-    .content--wrapper {
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 4rem;
-        background-color: #ffffff;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+		.language-label {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-size: 1rem;
+			color: #333;
+			cursor: pointer;
+		}
 
-    .content--wrapper h2 {
-        font-size: 2.5rem;
-        color: #34495e;
-        margin-bottom: 1.5rem;
-        text-align: center;
-        font-weight: bold;
-    }
+		.language-label input[type="radio"] {
+			margin: 0;
+		}
+		.btn--navigation__arrow {
+			color: #5dca88;
+		}
 
-    .source-content {
-        background-color: #ecf0f1;
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 2rem;
-    }
+		.btn--navigation {
+			position: relative;
+			display: block;
+			width: 8rem;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 10px;
+			background-color: black;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: -3.5em;
+			margin-left: -2.5rem;
+			margin-bottom: 3rem;
+			height: 5rem;
+		}
 
-    .form-wrapper {
-        margin-bottom: 2rem;
-    }
 
-    input[type="radio"] {
-        width:4rem;
-        height:1rem;
-    }
+        .translate--item__logo--update:hover {
+            color:#5dca88;
+        }
 
-    .translations-list {
-        margin-top: 2rem;
-    }
+        .translate--item__logo--remove:hover {
+            color:red;
+        }
 
-    .translations-list h3 {
-        font-size: 1.5rem;
-        color: #2c3e50;
-        margin-bottom: 1rem;
-    }
+		.content--wrapper {
+			max-width: 800px;
+			margin: 50px auto;
+			padding: 4rem;
+			background-color: #ffffff;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
 
-    .translation-item {
-        background-color: #ffffff;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+		.content--wrapper h2 {
+			font-size: 2.5rem;
+			color: #34495e;
+			margin-bottom: 1.5rem;
+			text-align: center;
+			font-weight: bold;
+		}
 
-    .translation-language {
-        font-size: 1.2rem;
-        color: #3498db;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-    }
+		.source-content {
+			background-color: #ecf0f1;
+			padding: 1.5rem;
+			border-radius: 8px;
+			margin-bottom: 2rem;
+		}
 
-    .translation-content {
-        font-size: 1rem;
-        color: #555;
-    }
+		.form-wrapper {
+			margin-bottom: 2rem;
+		}
 
-    .btn {
-        display: block;
-        width: 100%;
-        padding: 0.75rem;
-        border: none;
-        border-radius: 8px;
-        background-color: #5dca88;
-        color: white;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 1rem;
-        text-align: center;
-        margin-top:2rem;
-    }
+		input[type="radio"] {
+			width: 4rem;
+			height: 1rem;
+		}
 
-    .form--content {
-        width:100%;
-        margin-bottom:3rem;
-    }
-    .btn:hover {
-        opacity: 0.8;
-    }
-</style>
+		.translations-list {
+			margin-top: 2rem;
+		}
+
+		p {
+			margin: 0 !important;
+		}
+
+		.translations-list h3 {
+			font-size: 1.5rem;
+			color: #2c3e50;
+			margin-bottom: 1rem;
+		}
+
+		.translation-item {
+			background-color: #ffffff;
+			padding: 1rem;
+			border-radius: 8px;
+			margin-bottom: 1rem;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+		}
+
+		.translation-language {
+			font-size: 1.2rem;
+			color: #5dca88;
+			margin-bottom: 1rem !important;
+			font-weight: bold;
+		}
+
+		.translation-content {
+			font-size: 1rem;
+            margin-top: 1rem;
+			color: #555;
+		}
+
+		.btn {
+			display: block;
+			width: 100%;
+			padding: 0.75rem;
+			border: none;
+			border-radius: 8px;
+			background-color: #5dca88;
+			color: white;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 1rem;
+			text-align: center;
+			margin-top: 2rem;
+		}
+
+		.form--content {
+			width: 100%;
+			margin-bottom: 3rem;
+			border-radius: 5px;
+		}
+		.btn:hover {
+			opacity: 0.8;
+		}
+	</style>
 {% endblock %}

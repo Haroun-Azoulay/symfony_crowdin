@@ -46,7 +46,7 @@ class ProjectsType extends AbstractType
                 'expanded' => true
                 ]
             )
-            ->add('save', SubmitType::class, ['label' => 'Create Project'])
+            ->add('save', SubmitType::class, ['label' => 'Create / Update Project'])
         ;
     }
 }

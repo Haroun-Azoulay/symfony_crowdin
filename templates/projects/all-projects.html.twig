@@ -20,12 +20,53 @@ arrow_back
 					<h2 class="project--name"> {{ project.name|length > 15 ? project.name|slice(0, 15) ~ '...' : project.name }}</h2>
                     </a>
 					<p class="project--languages">Start Language:
-						{{ project.startLanguage }}</p>
+						&nbsp;{{ project.startLanguage }}&nbsp;
+						{% if project.startLanguage == 'French' %}
+								<span class="fi fi-fr"></span>
+							{% elseif project.startLanguage == 'English' %}
+								<span class="fi fi-gb"></span>
+							{% elseif project.startLanguage == 'Spanish' %}
+								<span class="fi fi-es"></span>
+							{% elseif project.startLanguage == 'German' %}
+								<span class="fi fi-de"></span>
+							{% elseif project.startLanguage == 'Italian' %}
+								<span class="fi fi-it"></span>
+							{% elseif project.startLanguage == 'Darija' %}
+								<span class="fi fi-dz"></span>
+								<span class="fi fi-ma"></span>
+							{% elseif project.startLanguage == 'Tamazight' %}
+								<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:1.5em" alt="Flag tamazight">
+							{% endif %}
+						</p>
 					<p class="project--languages">Target Languages:
-						{{ project.targetLanguages|join(', ') }}</p>
+						{% for language in project.targetLanguages %}
+						&nbsp;{{ language }}&nbsp;
+						{% if  language == 'French' %}
+								<span class="fi fi-fr"></span>
+							{% elseif  language == 'English' %}
+								<span class="fi fi-gb"></span>
+							{% elseif  language == 'Spanish' %}
+								<span class="fi fi-es"></span>
+							{% elseif  language == 'German' %}
+								<span class="fi fi-de"></span>
+							{% elseif  language == 'Italian' %}
+								<span class="fi fi-it"></span>
+							{% elseif  language == 'Darija' %}
+								<span class="fi fi-dz"></span>
+								<span class="fi fi-ma"></span>
+							{% elseif  language == 'Tamazight' %}
+								<img src="{{ asset('images/tamazight_flag.svg') }}" style="width:1.5em" alt="Flag tamazight">
+							{% endif %}
+							{% endfor %}
+						</p>
+						<p class="project--author">Author:
+						{{ project.user.pseudo }}</p>
 					<p class="project--date">Created on:
-						{{ project.createdAt|date('d/m/Y') }}</p>
-				</div>
+						{{ project.CreatedAt|date('F j, Y H:i', "Europe/Paris") }}
+						</br>Update on:
+						{{ project.UpdateDate|date('F j, Y H:i', "Europe/Paris") }}
+						</div>
+				
 
 			{% endfor %}
 		</div>
@@ -83,7 +124,7 @@ arrow_back
 			border: 1px solid #e0e0e0;
 			border-radius: 8px;
 			width: calc(33.333% - 20px);
-            height:10rem;
+            height:20rem;
 			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 			transition: transform 0.3s ease;
             text-align:center;
@@ -97,6 +138,13 @@ arrow_back
 			font-size: 24px;
 			color: #333;
 			margin-bottom: 10px;
+		}
+
+		.project--author {
+			font-size: 20px;
+			color: #5dca88 !important;
+			margin-bottom: 10px;
+			margin:1em;
 		}
 
 		.project--languages {
@@ -133,5 +181,9 @@ arrow_back
         .btn:hover {
             opacity: 0.8;
         }
+
+		.fi {
+			line-height: 23px !important;
+		}
 	</style>
 {% endblock %}
