@@ -75,20 +75,6 @@ class SourcesController extends AbstractController
 
         $numbermax = countElementsinTRanslations($maxTranslations);
     
-        // $existingTranslation = $entityManager->getRepository(Translations::class)->findOneBy(['source' => $source]);
-    
-        // if ($numbermax < ) {
-        //     $translations = $entityManager->getRepository(Translations::class)->findAllOrderedByName($id);
-    
-        //     return $this->render('sources/show-source.html.twig', [
-        //         'source' => $source,
-        //         'translations' => $translations,
-        //         'form' => null,
-        //         'project' => $project,
-        //         'roles' => $roles, 
-        //     ]);
-        // }
-    
         $translations = new Translations();
         $translations->setSource($source);
         $form = $this->createForm(TranslationsType::class, $translations);

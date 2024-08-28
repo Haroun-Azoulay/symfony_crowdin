@@ -40,8 +40,6 @@ class ProjectsController extends AbstractController
         $projects = new Projects();
         $projects->setUser($user);
         
-
-        
         $form = $this->createForm(ProjectsType::class, $projects);
 
         $this->denyAccessUnlessGranted('PROJECT_VIEW', $projects);
