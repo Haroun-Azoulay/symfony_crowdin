@@ -17,6 +17,13 @@ The site is divided into 3 main sections:
 - Translator
 
 ## Screens
+
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/inscription.png)
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/home-page.png)
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/profil.png)
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/all-projects.png)
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/project.png)
+![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/translations.png)
         
 ## 🛠️ Tech Stack
 - [Symfony](https://symfony.com/doc/7.0/index.html)
