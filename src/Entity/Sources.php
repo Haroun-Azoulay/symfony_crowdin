@@ -35,7 +35,7 @@ class Sources
     /**
      * @var Collection<int, Translations>
      */
-    #[ORM\OneToMany(targetEntity: Translations::class, mappedBy: 'source')]
+    #[ORM\OneToMany(targetEntity: Translations::class, mappedBy: 'source', cascade:["persist", "remove"], orphanRemoval: true)]
     private Collection $translations;
 
     public function __construct()

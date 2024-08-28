@@ -8,10 +8,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class ProjectVoter extends Voter
+class TranslateVoter extends Voter
 {
-    public const EDIT = 'PROJECT_EDIT';
-    public const VIEW = 'PROJECT_VIEW';
+    public const EDIT = 'TRANSLATE_EDIT';
+    public const VIEW = 'TRANSLATE_VIEW';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -27,7 +27,7 @@ class ProjectVoter extends Voter
         //     return false;
         // }
 
-        if (!in_array('ROLE_MANAGER', $user->getRoles()) && !in_array('ROLE_MANAGER_TRANSLATOR', $user->getRoles())) {
+        if (!in_array('ROLE_TRANSLATOR', $user->getRoles()) && !in_array('ROLE_MANAGER_TRANSLATOR', $user->getRoles())) {
             return false;
         }
 
@@ -45,12 +45,12 @@ class ProjectVoter extends Voter
 {
     // if i want verify my role for debug
     // dd($user->getRoles());
-    return $user === $project->getUser();
+    return true;
 }
 
 
     private function canEdit(Projects $project, User $user): bool
     {
-        return $user === $project->getUser();
+        return true;
     }
 }
