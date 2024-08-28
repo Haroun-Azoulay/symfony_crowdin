@@ -16,6 +16,11 @@ The site is divided into 3 main sections:
 - Projects
 - Translator
 
+You must use :
+- Doctrine (ORM)
+- Voters & acces controll 
+- Form
+- Not a lot business logic in the controller
 ## Screens
 
 ![Cover](https://github.com/Haroun-Azoulay/symfony_crowdin/blob/main/img/inscription.png)
@@ -248,8 +253,8 @@ POST /translations/delete/{id}
 
         
 ## 🙇 Acknowledgements      
-- A [Docker](https://www.docker.com/)- based installer and runtime for the [Symfony](https://symfony.com) web framework,  Thanks a lot for your work !
-- [Etna](https://etna.io/)- thanks also for being a teacher on the php bachelor module.
+- A [Docker](https://www.docker.com/) - based installer and runtime for the [Symfony](https://symfony.com) web framework,  Thanks a lot for your work !
+- [Etna](https://etna.io/) - thanks also for being a teacher on the php bachelor module.
 
         
         
