@@ -13,34 +13,6 @@ use App\Entity\Translations;
 
 class TranslationsController extends AbstractController
 {
-    // #[Route('/translations/create/{id}', name: 'app_translations')]
-    // public function index(Request $request, EntityManagerInterface $entityManager, int $id): Response
-    // {
-    //     $source = $entityManager->getRepository(Sources::class)->find($id);
-
-    //     if (!$source) {
-    //         throw $this->createNotFoundException('No source found for id ' . $id);
-    //     }
-
-
-    //     $translations = new Translations();
-    //     $translations->setSource($source);
-
-
-    //     $form = $this->createForm(TranslationsType::class, $translations);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $translations = $form->getData();
-    //         $entityManager->persist($translations);
-    //         $entityManager->flush();
-    //         return $this->redirectToRoute('app_main_homepage');
-    //     } {
-    //         return $this->render('translations/index.html.twig', [
-    //             'form' => $form->createView(),
-    //         ]);
-    //     }
-    // }
-    
 
     #[Route('/translations/update/{id}', name: 'app_translation_update')]
     public function updateTranslations(Request $request, EntityManagerInterface $entityManager, int $id): Response
@@ -56,10 +28,7 @@ class TranslationsController extends AbstractController
 
         $source = $translation->getSource();
 
-
         $project = $source->getProjects();
-
-        
 
         $form = $this->createForm(TranslationsType::class, $translation);
         $form->handleRequest($request);
@@ -96,8 +65,6 @@ class TranslationsController extends AbstractController
                 'No translation found for id ' . $id
             );
         }
-    
-        $source = $translations->getSource(); 
     
         $entityManager->remove($translations);
         $entityManager->flush();

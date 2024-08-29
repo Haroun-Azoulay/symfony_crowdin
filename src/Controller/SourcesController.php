@@ -69,11 +69,11 @@ class SourcesController extends AbstractController
     
         $maxTranslations = $source->getProjects()->getTargetLanguages();
 
-        function countElementsinTRanslations(array $maxTranslations):int {
+        function countElementsTranslations(array $maxTranslations):int {
             return count($maxTranslations);
         };
 
-        $numbermax = countElementsinTRanslations($maxTranslations);
+        $numbermax = countElementsTranslations($maxTranslations);
     
         $translations = new Translations();
         $translations->setSource($source);
@@ -145,9 +145,7 @@ public function updateSource(Request $request, EntityManagerInterface $entityMan
         }
 
         $projectId = $source->getProjects()->getId();
-
         $entityManager->remove($source);
-
         $entityManager->flush();
 
         return $this->redirectToRoute('app_projects_show', ['id' => $projectId]);

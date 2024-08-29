@@ -26,7 +26,7 @@ class Translations
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $update_date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'translations', cascade:["persist", "remove"])]
+    #[ORM\ManyToOne(inversedBy: 'translations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sources $source = null;
 
@@ -74,6 +74,11 @@ class Translations
     public function getUpdateDate(): ?\DateTimeInterface
     {
         return $this->update_date;
+    }
+    
+    public function setUpdateDate(): void
+    {
+        $this->update_date = new \DateTime();
     }
 
 

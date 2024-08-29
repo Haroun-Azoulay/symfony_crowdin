@@ -113,9 +113,7 @@ class ProjectsController extends AbstractController
         }
         
         $entityManager->remove($project);
-
         $entityManager->flush();
-
 
         return $this->redirectToRoute('app_projects');
     }

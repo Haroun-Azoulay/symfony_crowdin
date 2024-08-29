@@ -35,7 +35,7 @@ class Sources
     /**
      * @var Collection<int, Translations>
      */
-    #[ORM\OneToMany(targetEntity: Translations::class, mappedBy: 'source', cascade:["persist", "remove"], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Translations::class, mappedBy: 'source', cascade:["persist", "remove"])]
     private Collection $translations;
 
     public function __construct()
@@ -82,6 +82,11 @@ class Sources
     public function getUpdateDate(): ?\DateTimeInterface
     {
         return $this->update_date;
+    }
+
+    public function setUpdateDate(): void
+    {
+        $this->update_date = new \DateTime();
     }
 
     public function getProjects(): ?Projects
