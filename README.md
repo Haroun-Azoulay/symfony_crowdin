@@ -251,6 +251,11 @@ POST /translations/update/{id}
 POST /translations/delete/{id}
 ```
 
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id` | `string` | **Required**. The ID of the translations. |
+
+
         
 ## 🙇 Acknowledgements      
 - A [Docker](https://www.docker.com/) - based installer and runtime for the [Symfony](https://symfony.com) web framework,  Thanks a lot for your work !
